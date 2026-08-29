@@ -1,3 +1,4 @@
+
 const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
@@ -10,11 +11,20 @@ const nav = document.querySelector('.main-nav');
 window.addEventListener(
   'scroll',
   () => {
+
     if (header) {
-      header.classList.toggle('scrolled', window.scrollY > 18);
+
+      header.classList.toggle(
+        'scrolled',
+        window.scrollY > 18
+      );
+
     }
+
   },
-  { passive: true }
+  {
+    passive: true
+  }
 );
 
 
@@ -22,263 +32,719 @@ window.addEventListener(
    MENU MOBILNE
 ========================================== */
 
-menuButton?.addEventListener('click', () => {
+menuButton?.addEventListener(
+  'click',
+  () => {
 
-  const isOpen =
-    menuButton.getAttribute('aria-expanded') === 'true';
-
-  menuButton.setAttribute(
-    'aria-expanded',
-    String(!isOpen)
-  );
-
-  nav?.classList.toggle('open', !isOpen);
-
-});
+    const isOpen =
+      menuButton.getAttribute(
+        'aria-expanded'
+      ) === 'true';
 
 
-document.querySelectorAll('.main-nav a').forEach((link) => {
-
-  link.addEventListener('click', () => {
-
-    nav?.classList.remove('open');
-
-    menuButton?.setAttribute(
+    menuButton.setAttribute(
       'aria-expanded',
-      'false'
+      String(!isOpen)
+    );
+
+
+    nav?.classList.toggle(
+      'open',
+      !isOpen
+    );
+
+  }
+);
+
+
+document
+  .querySelectorAll('.main-nav a')
+  .forEach((link) => {
+
+    link.addEventListener(
+      'click',
+      () => {
+
+        nav?.classList.remove(
+          'open'
+        );
+
+
+        menuButton?.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+      }
     );
 
   });
-
-});
 
 
 /* =========================================
    ANIMACJE ELEMENTÓW
 ========================================== */
 
-const observer = new IntersectionObserver(
-  (entries) => {
+const observer =
+  new IntersectionObserver(
 
-    entries.forEach((entry) => {
+    (entries) => {
 
-      if (entry.isIntersecting) {
+      entries.forEach(
+        (entry) => {
 
-        entry.target.classList.add('visible');
+          if (
+            entry.isIntersecting
+          ) {
 
-        observer.unobserve(entry.target);
-
-      }
-
-    });
-
-  },
-  {
-    threshold: 0.12
-  }
-);
+            entry.target
+              .classList
+              .add('visible');
 
 
-document.querySelectorAll('.reveal').forEach((element) => {
+            observer.unobserve(
+              entry.target
+            );
 
-  observer.observe(element);
+          }
 
-});
+        }
+      );
+
+    },
+
+    {
+      threshold: 0.12
+    }
+
+  );
+
+
+document
+  .querySelectorAll('.reveal')
+  .forEach((element) => {
+
+    observer.observe(
+      element
+    );
+
+  });
 
 
 /* =========================================
    ROK W STOPCE
 ========================================== */
 
-const year = document.getElementById('year');
+const year =
+  document.getElementById(
+    'year'
+  );
+
 
 if (year) {
-  year.textContent = new Date().getFullYear();
+
+  year.textContent =
+    new Date()
+      .getFullYear();
+
 }
 
 
 /* =========================================
-   KRAJE I MIASTA
-   Kliknięcie kafelka rozwija listę miast
+   KOPIOWANIE NUMERU TELEFONU
+
+   Kliknięcie numeru:
+   - kopiuje numer
+   - pokazuje komunikat
+
+   Dolny przycisk:
+   "ZADZWOŃ"
+   nadal wykonuje połączenie.
 ========================================== */
 
-const countryButtons =
-  document.querySelectorAll('[data-country-target]');
-
-const countryPanels =
-  document.querySelectorAll('[data-country-panel]');
+let phoneToastTimer;
 
 
-countryButtons.forEach((button) => {
+function getPhoneToast() {
 
-  button.addEventListener('click', () => {
-
-    const target =
-      button.dataset.countryTarget;
-
-    const panel =
-      document.querySelector(
-        `[data-country-panel="${target}"]`
-      );
-
-    if (!panel) {
-      return;
-    }
-
-    const isOpen =
-      button.getAttribute('aria-expanded') === 'true';
-
-
-    /* Zamykamy pozostałe kraje */
-
-    countryButtons.forEach((otherButton) => {
-
-      otherButton.setAttribute(
-        'aria-expanded',
-        'false'
-      );
-
-      otherButton.classList.remove('is-active');
-
-    });
-
-
-    countryPanels.forEach((otherPanel) => {
-
-      otherPanel.hidden = true;
-      otherPanel.classList.remove('is-open');
-
-    });
-
-
-    /* Ponowne kliknięcie zamyka aktualny kraj */
-
-    if (isOpen) {
-      return;
-    }
-
-
-    /* Otwieramy wybrany kraj */
-
-    button.setAttribute(
-      'aria-expanded',
-      'true'
+  let toast =
+    document.querySelector(
+      '.copy-phone-toast'
     );
 
-    button.classList.add('is-active');
 
-    panel.hidden = false;
+  if (!toast) {
 
-    requestAnimationFrame(() => {
-      panel.classList.add('is-open');
-    });
+    toast =
+      document.createElement(
+        'div'
+      );
+
+
+    toast.className =
+      'copy-phone-toast';
+
+
+    toast.setAttribute(
+      'role',
+      'status'
+    );
+
+
+    toast.setAttribute(
+      'aria-live',
+      'polite'
+    );
+
+
+    document.body.appendChild(
+      toast
+    );
+
+  }
+
+
+  return toast;
+
+}
+
+
+function showPhoneToast(phone) {
+
+  const toast =
+    getPhoneToast();
+
+
+  toast.innerHTML =
+    `<strong>Skopiowano:</strong> ${phone}`;
+
+
+  toast.classList.add(
+    'is-visible'
+  );
+
+
+  window.clearTimeout(
+    phoneToastTimer
+  );
+
+
+  phoneToastTimer =
+    window.setTimeout(
+      () => {
+
+        toast.classList.remove(
+          'is-visible'
+        );
+
+      },
+      2200
+    );
+
+}
+
+
+function fallbackCopy(text) {
+
+  const textarea =
+    document.createElement(
+      'textarea'
+    );
+
+
+  textarea.value =
+    text;
+
+
+  textarea.setAttribute(
+    'readonly',
+    ''
+  );
+
+
+  textarea.style.position =
+    'fixed';
+
+
+  textarea.style.left =
+    '-9999px';
+
+
+  textarea.style.opacity =
+    '0';
+
+
+  document.body.appendChild(
+    textarea
+  );
+
+
+  textarea.select();
+
+
+  document.execCommand(
+    'copy'
+  );
+
+
+  textarea.remove();
+
+}
+
+
+document
+  .querySelectorAll(
+    'a[href^="tel:"]:not(.mobile-call)'
+  )
+  .forEach((link) => {
+
+    link.addEventListener(
+      'click',
+      async (event) => {
+
+        event.preventDefault();
+
+
+        const rawPhone =
+          link
+            .getAttribute(
+              'href'
+            )
+            ?.replace(
+              /^tel:/,
+              ''
+            )
+            .trim()
+          ||
+          '+46700000000';
+
+
+        const strong =
+          link.querySelector(
+            'strong'
+          );
+
+
+        let displayedPhone =
+          strong
+            ?.textContent
+            ?.trim();
+
+
+        if (
+          !displayedPhone ||
+          !displayedPhone.includes('+')
+        ) {
+
+          const text =
+            link
+              .textContent
+              .replace(
+                /\s+/g,
+                ' '
+              )
+              .trim();
+
+
+          const phoneMatch =
+            text.match(
+              /\+\d[\d\s-]{6,}/
+            );
+
+
+          displayedPhone =
+            phoneMatch
+              ? phoneMatch[0].trim()
+              : '+46 70 000 00 00';
+
+        }
+
+
+        try {
+
+          if (
+            navigator.clipboard &&
+            window.isSecureContext
+          ) {
+
+            await navigator
+              .clipboard
+              .writeText(
+                rawPhone
+              );
+
+          } else {
+
+            fallbackCopy(
+              rawPhone
+            );
+
+          }
+
+
+          showPhoneToast(
+            displayedPhone
+          );
+
+        } catch (error) {
+
+          fallbackCopy(
+            rawPhone
+          );
+
+
+          showPhoneToast(
+            displayedPhone
+          );
+
+        }
+
+      }
+    );
 
   });
 
-});
+
+/* =========================================
+   KRAJE I MIASTA
+========================================== */
+
+const countryButtons =
+  document.querySelectorAll(
+    '[data-country-target]'
+  );
+
+
+const countryPanels =
+  document.querySelectorAll(
+    '[data-country-panel]'
+  );
+
+
+countryButtons.forEach(
+  (button) => {
+
+    button.addEventListener(
+      'click',
+      () => {
+
+        const target =
+          button.dataset
+            .countryTarget;
+
+
+        const panel =
+          document.querySelector(
+            `[data-country-panel="${target}"]`
+          );
+
+
+        if (!panel) {
+          return;
+        }
+
+
+        const isOpen =
+          button.getAttribute(
+            'aria-expanded'
+          ) === 'true';
+
+
+        /* Zamykamy pozostałe */
+
+        countryButtons.forEach(
+          (otherButton) => {
+
+            otherButton.setAttribute(
+              'aria-expanded',
+              'false'
+            );
+
+
+            otherButton
+              .classList
+              .remove(
+                'is-active'
+              );
+
+          }
+        );
+
+
+        countryPanels.forEach(
+          (otherPanel) => {
+
+            otherPanel.hidden =
+              true;
+
+
+            otherPanel
+              .classList
+              .remove(
+                'is-open'
+              );
+
+          }
+        );
+
+
+        /* Drugie kliknięcie zamyka */
+
+        if (isOpen) {
+          return;
+        }
+
+
+        /* Otwieramy kraj */
+
+        button.setAttribute(
+          'aria-expanded',
+          'true'
+        );
+
+
+        button
+          .classList
+          .add(
+            'is-active'
+          );
+
+
+        panel.hidden =
+          false;
+
+
+        requestAnimationFrame(
+          () => {
+
+            panel
+              .classList
+              .add(
+                'is-open'
+              );
+
+          }
+        );
+
+      }
+    );
+
+  }
+);
 
 
 /* =========================================
-   FILM
-   YouTube ładuje się dopiero po kliknięciu PLAY
+   FILM YOUTUBE
 ========================================== */
 
 document
-  .querySelectorAll('.video-player[data-video-id]')
+  .querySelectorAll(
+    '.video-player[data-video-id]'
+  )
   .forEach((player) => {
 
     const videoId =
-      player.dataset.videoId?.trim();
+      player.dataset
+        .videoId
+        ?.trim();
+
 
     const button =
-      player.querySelector('.video-facade');
+      player.querySelector(
+        '.video-facade'
+      );
+
 
     const thumbnail =
-      player.querySelector('.video-thumbnail');
+      player.querySelector(
+        '.video-thumbnail'
+      );
 
 
     const hasVideo =
       videoId &&
-      videoId !== 'TU_WSTAW_ID_FILMU_Z_YOUTUBE';
+      videoId !==
+        'TU_WSTAW_ID_FILMU_Z_YOUTUBE';
 
 
-    /* -----------------------------------------
-       LEKKA MINIATURA FILMU
-       Ładuje się tylko obrazek, nie YouTube
-    ------------------------------------------ */
+    /* =====================================
+       MINIATURA
+    ====================================== */
 
-    if (thumbnail && hasVideo) {
+    if (
+      thumbnail &&
+      hasVideo
+    ) {
 
-      let fallbackUsed = false;
+      let fallbackUsed =
+        false;
+
 
       thumbnail.src =
         `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-      thumbnail.addEventListener('load', () => {
 
-        thumbnail.classList.add('is-loaded');
+      thumbnail.addEventListener(
+        'load',
+        () => {
 
-      });
+          thumbnail
+            .classList
+            .add(
+              'is-loaded'
+            );
 
-
-      thumbnail.addEventListener('error', () => {
-
-        if (fallbackUsed) {
-          return;
         }
+      );
 
-        fallbackUsed = true;
 
-        thumbnail.src =
-          `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+      thumbnail.addEventListener(
+        'error',
+        () => {
 
-      });
+          if (fallbackUsed) {
+            return;
+          }
+
+
+          fallbackUsed =
+            true;
+
+
+          thumbnail.src =
+            `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+        }
+      );
 
     }
 
 
-    /* -----------------------------------------
-       YOUTUBE DOPIERO PO KLIKNIĘCIU
-    ------------------------------------------ */
+    /* =====================================
+       YOUTUBE PO KLIKNIĘCIU
+    ====================================== */
 
-    button?.addEventListener('click', () => {
+    button?.addEventListener(
+      'click',
+      () => {
 
-      if (!hasVideo) {
+        if (!hasVideo) {
 
-        console.warn(
-          'Wstaw ID filmu YouTube w data-video-id w pliku index.html.'
+          console.warn(
+            'Wstaw ID filmu YouTube w data-video-id w pliku index.html.'
+          );
+
+          return;
+
+        }
+
+
+        const iframe =
+          document.createElement(
+            'iframe'
+          );
+
+
+        iframe.src =
+          `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
+
+
+        iframe.title =
+          'Film o serwisie Polski Mechanik w Szwecji';
+
+
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+
+
+        iframe.allowFullscreen =
+          true;
+
+
+        iframe.referrerPolicy =
+          'strict-origin-when-cross-origin';
+
+
+        player.replaceChildren(
+          iframe
         );
 
-        return;
-
       }
-
-
-      const iframe =
-        document.createElement('iframe');
-
-
-      iframe.src =
-        `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
-
-
-      iframe.title =
-        'Film o serwisie Polski Mechanik w Szwecji';
-
-
-      iframe.allow =
-        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-
-
-      iframe.allowFullscreen = true;
-
-
-      iframe.referrerPolicy =
-        'strict-origin-when-cross-origin';
-
-
-      player.replaceChildren(iframe);
-
-    });
+    );
 
   });
+
+
+
+/* =========================================================
+   === FOOTER COUNTRY LINKS START ===
+   Kliknięcie Szwecja / Dania / Norwegia w stopce:
+   - przewija do kafelka
+   - automatycznie rozwija odpowiedni kraj
+========================================================= */
+
+document
+  .querySelectorAll(
+    '.footer-country-link[data-country]'
+  )
+  .forEach((link) => {
+
+    link.addEventListener(
+      'click',
+      (event) => {
+
+        event.preventDefault();
+
+
+        const country =
+          link.dataset.country;
+
+
+        const button =
+          document.querySelector(
+            `[data-country-target="${country}"]`
+          );
+
+
+        if (!button) {
+          return;
+        }
+
+
+        button.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+
+        window.setTimeout(
+          () => {
+
+            const isOpen =
+              button.getAttribute(
+                'aria-expanded'
+              ) === 'true';
+
+
+            if (!isOpen) {
+              button.click();
+            }
+
+
+            button.focus({
+              preventScroll: true
+            });
+
+          },
+          550
+        );
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   === FOOTER COUNTRY LINKS END ===
+========================================================= */

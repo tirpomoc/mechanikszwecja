@@ -1,0 +1,5 @@
+_backup-*/
+_broken-*/
+node_modules/
+.DS_Store
+Thumbs.db

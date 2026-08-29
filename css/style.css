@@ -43,8 +43,24 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .site-header.scrolled { background: rgba(10,17,23,.96); box-shadow: 0 10px 30px rgba(0,0,0,.15); }
 .nav-wrap { min-height: 78px; display: flex; align-items: center; gap: 28px; }
-.brand { display: inline-flex; align-items: center; gap: 12px; color: white; min-width: max-content; }
-.brand-mark { width: 50px; height: 50px; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-size: 14px; font-weight: 950; transform: skew(-5deg); }
+.brand { display: inline-flex; align-items: center; color: white; min-width: max-content; }
+.brand-logo {
+  width: 122px;
+  height: 50px;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #000;
+  box-shadow: 0 8px 24px rgba(0,0,0,.20);
+}
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
 .brand-copy { display: grid; line-height: 1.05; }
 .brand-copy strong { font-size: 14px; letter-spacing: .02em; }
 .brand-copy small { color: #b8c2c9; margin-top: 5px; font-size: 11px; }
@@ -126,8 +142,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .step-card p { margin: 0; color: #6e7b84; font-size: 14px; }
 
 .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.1); }
-.problem-card { min-height: 250px; padding: 28px; background: var(--ink); transition: background .2s ease; }
-.problem-card:hover { background: var(--steel); }
+.problem-card { min-height: 250px; padding: 28px; background: var(--ink); transition: background .2s ease, transform .2s ease; cursor: pointer; }
+.problem-card:hover { background: var(--steel); transform: translateY(-2px); }
+.problem-card:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 .problem-card > span { color: var(--yellow); font-size: 11px; font-weight: 900; }
 .problem-card h3 { margin: 42px 0 10px; font-size: 21px; letter-spacing: -.02em; }
 .problem-card p { color: #93a1aa; font-size: 13px; margin: 0; }
@@ -208,36 +225,122 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .country-card {
   position: relative;
+  isolation: isolate;
   min-height: 128px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
+  display: flex;
   align-items: center;
-  column-gap: 16px;
-  row-gap: 3px;
+  justify-content: space-between;
+  gap: 16px;
+  overflow: hidden;
   padding: 24px;
-  border: 1px solid rgba(255,255,255,.22);
-  background: rgba(7,15,20,.78);
+  border: 1px solid rgba(255,255,255,.28);
+  background: rgba(6,13,18,.08);
   color: white;
   text-align: left;
   cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+/* Flaga jest osobną, półprzezroczystą warstwą.
+   Dzięki temu napisy pozostają w 100% wyraźne, a pod kafelkiem widać grafikę sekcji. */
+.country-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: .27;
+  pointer-events: none;
+}
+
+/* Szwecja — pionowa belka krzyża celowo przesunięta w lewo */
+.country-card-sweden::before {
+  background:
+    linear-gradient(90deg, transparent 0 31.25%, #fecc02 31.25% 43.75%, transparent 43.75%),
+    linear-gradient(0deg, transparent 0 40%, #fecc02 40% 60%, transparent 60%),
+    #006aa7;
+}
+
+/* Norwegia */
+.country-card-norway::before {
+  background:
+    linear-gradient(90deg, transparent 0 33%, #00205b 33% 39%, transparent 39%),
+    linear-gradient(0deg, transparent 0 47%, #00205b 47% 53%, transparent 53%),
+    linear-gradient(90deg, transparent 0 29%, #ffffff 29% 43%, transparent 43%),
+    linear-gradient(0deg, transparent 0 42%, #ffffff 42% 58%, transparent 58%),
+    #ba0c2f;
+}
+
+/* Dania */
+.country-card-denmark::before {
+  background:
+    linear-gradient(90deg, transparent 0 31%, #ffffff 31% 41%, transparent 41%),
+    linear-gradient(0deg, transparent 0 43%, #ffffff 43% 57%, transparent 57%),
+    #c8102e;
+}
+
+.country-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(0,0,0,.18), rgba(0,0,0,.015) 72%);
+  pointer-events: none;
 }
 
 .country-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255,196,0,.72);
-  background: rgba(12,24,31,.9);
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,.82);
+  box-shadow: 0 22px 50px rgba(0,0,0,.28);
 }
 
-.country-card:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
-.country-card.is-active { border-color: var(--yellow); background: rgba(16,24,32,.94); }
-.country-card-code { grid-row: 1 / 3; color: var(--yellow); font-size: 13px; font-weight: 950; letter-spacing: .12em; }
-.country-card strong { font-size: clamp(22px, 2.1vw, 30px); line-height: 1; letter-spacing: -.035em; }
-.country-card small { color: #aeb9c0; font-size: 11px; }
-.country-card i { grid-column: 3; grid-row: 1 / 3; color: var(--yellow); font-size: 28px; font-style: normal; line-height: 1; transition: transform .2s ease; }
-.country-card.is-active i { transform: rotate(45deg); }
+.country-card:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.country-card.is-active {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 2px rgba(255,196,0,.22), 0 22px 50px rgba(0,0,0,.30);
+}
+
+.country-card strong {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1;
+  letter-spacing: -.035em;
+  font-weight: 950;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,.88), 0 1px 1px rgba(0,0,0,.9);
+}
+
+.country-card i {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 50%;
+  background: rgba(0,0,0,.28);
+  color: #fff;
+  font-size: 27px;
+  font-style: normal;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8);
+  transition: transform .2s ease, background .2s ease;
+}
+
+.country-card:hover i {
+  background: rgba(0,0,0,.42);
+}
+
+.country-card.is-active i {
+  transform: rotate(45deg);
+}
 
 .country-city-panel {
   margin-top: 16px;
@@ -358,7 +461,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .container { width: min(calc(100% - 28px), var(--container)); }
   .site-header { position: absolute; }
   .nav-wrap { min-height: 70px; }
-  .brand-mark { width: 44px; height: 44px; }
   .brand-copy strong { font-size: 12px; letter-spacing: .01em; }
   .brand-copy small { font-size: 9px; }
   .header-call { display: none; }
@@ -392,11 +494,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .city-links-heading h2 { font-size: 39px; }
   .city-links-heading p { font-size: 14px; }
   .country-tabs { gap: 8px; }
-  .country-card { min-height: 94px; grid-template-columns: 1fr auto; grid-template-rows: auto auto auto; padding: 14px 12px; column-gap: 8px; }
-  .country-card-code { grid-row: 1; grid-column: 1; font-size: 10px; }
-  .country-card strong { grid-row: 2; grid-column: 1; font-size: 17px; }
-  .country-card small { grid-row: 3; grid-column: 1; font-size: 9px; }
-  .country-card i { grid-column: 2; grid-row: 1 / 4; font-size: 21px; }
+  .country-card { min-height: 94px; padding: 14px 12px; gap: 8px; }
+  .country-card strong { font-size: 17px; }
+  .country-card i { width: 30px; height: 30px; font-size: 20px; }
   .country-city-panel { padding: 14px; }
   .country-panel-heading { margin-bottom: 13px; }
   .country-panel-heading strong { font-size: 18px; }
@@ -415,6 +515,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .mobile-actions a { display: grid; place-items: center; font-size: 12px; font-weight: 950; letter-spacing: .03em; }
   .mobile-call { background: var(--yellow); color: var(--ink); }
   .mobile-wa { background: #163329; color: white; }
+}
+
+
+@media (max-width: 520px) {
+  .country-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .country-card {
+    min-height: 88px;
+    padding: 16px 18px;
+  }
+
+  .country-card strong {
+    font-size: 20px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -863,3 +979,3942 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
+
+
+/* =========================================
+   POWIADOMIENIE: NUMER SKOPIOWANY
+========================================== */
+.copy-phone-toast {
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 18px);
+  max-width: calc(100% - 32px);
+  padding: 13px 18px;
+  border: 1px solid rgba(255,196,0,.45);
+  border-radius: 12px;
+  background: rgba(10,17,23,.96);
+  color: #fff;
+  box-shadow: 0 18px 48px rgba(0,0,0,.35);
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: .01em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.copy-phone-toast strong { color: var(--yellow); }
+.copy-phone-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 760px) {
+  .copy-phone-toast { bottom: 78px; }
+}
+
+
+/* ==========================================================
+   === MECHANIK SZWECJA FIX START ===
+========================================================== */
+
+
+/* ==========================================================
+   LOGO W HEADERZE
+   Usuwamy całkowicie logo / nazwę po lewej.
+========================================================== */
+
+.site-header .brand,
+.site-header .brand-logo,
+.site-header .brand-copy {
+  display: none !important;
+}
+
+
+/* Menu zostaje po prawej stronie */
+
+.site-header .main-nav {
+  margin-left: auto !important;
+}
+
+
+/* ==========================================================
+   KAFELKI KRAJÓW
+
+   Tło kafelka jest przezroczyste.
+   Flaga jest osobną półprzezroczystą warstwą.
+========================================================== */
+
+.country-card {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+
+  background: transparent !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.34) !important;
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.18) !important;
+}
+
+
+/* ==========================================================
+   USUWAMY STARE PEŁNE TŁA FLAG
+========================================================== */
+
+.country-card-sweden,
+.country-card-norway,
+.country-card-denmark {
+  background: transparent !important;
+}
+
+
+/* ==========================================================
+   WARSTWA FLAGI
+
+   0.78 = flaga jest wyraźna,
+   ale nadal częściowo widać grafikę pod spodem.
+
+   Czyli jest MNIEJ przezroczysta niż wcześniej.
+========================================================== */
+
+.country-card::before {
+  content: "" !important;
+
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  z-index: 0 !important;
+
+  opacity: 0.78 !important;
+
+  pointer-events: none !important;
+
+  background-size: cover !important;
+
+  background-position: center !important;
+
+  background-repeat: no-repeat !important;
+}
+
+
+/* ==========================================================
+   SZWECJA
+========================================================== */
+
+.country-card-sweden::before {
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent 0 31%,
+      #fecc00 31% 42%,
+      transparent 42%
+    ),
+
+    linear-gradient(
+      0deg,
+      transparent 0 42%,
+      #fecc00 42% 58%,
+      transparent 58%
+    ),
+
+    #006aa7 !important;
+}
+
+
+/* ==========================================================
+   NORWEGIA
+========================================================== */
+
+.country-card-norway::before {
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent 0 33%,
+      #00205b 33% 39%,
+      transparent 39%
+    ),
+
+    linear-gradient(
+      0deg,
+      transparent 0 47%,
+      #00205b 47% 53%,
+      transparent 53%
+    ),
+
+    linear-gradient(
+      90deg,
+      transparent 0 29%,
+      #ffffff 29% 43%,
+      transparent 43%
+    ),
+
+    linear-gradient(
+      0deg,
+      transparent 0 42%,
+      #ffffff 42% 58%,
+      transparent 58%
+    ),
+
+    #ba0c2f !important;
+}
+
+
+/* ==========================================================
+   DANIA
+========================================================== */
+
+.country-card-denmark::before {
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent 0 31%,
+      #ffffff 31% 41%,
+      transparent 41%
+    ),
+
+    linear-gradient(
+      0deg,
+      transparent 0 43%,
+      #ffffff 43% 57%,
+      transparent 57%
+    ),
+
+    #c8102e !important;
+}
+
+
+/* ==========================================================
+   LEKKIE PRZYCIEMNIENIE NAD FLAGĄ
+
+   Tekst będzie wyraźniejszy.
+========================================================== */
+
+.country-card::after {
+  content: "" !important;
+
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  z-index: 1 !important;
+
+  pointer-events: none !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.17),
+      rgba(0, 0, 0, 0.025) 75%
+    ) !important;
+}
+
+
+/* ==========================================================
+   NAPISY:
+   SZWECJA
+   NORWEGIA
+   DANIA
+
+   Są całkowicie wyraźne.
+========================================================== */
+
+.country-card strong {
+  position: relative !important;
+
+  z-index: 3 !important;
+
+  opacity: 1 !important;
+
+  background: transparent !important;
+
+  color: #ffffff !important;
+
+  font-weight: 950 !important;
+
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 14px rgba(0, 0, 0, 0.72) !important;
+}
+
+
+/* Plus po prawej stronie */
+
+.country-card i {
+  position: relative !important;
+
+  z-index: 3 !important;
+}
+
+
+/* ==========================================================
+   HOVER FLAG
+========================================================== */
+
+.country-card:hover {
+  transform:
+    translateY(-3px) !important;
+
+  border-color:
+    rgba(255, 255, 255, 0.82) !important;
+
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.26) !important;
+
+  filter: none !important;
+}
+
+
+/* ==========================================================
+   AKTYWNY KRAJ
+========================================================== */
+
+.country-card.is-active {
+  border-color:
+    var(--yellow) !important;
+
+  box-shadow:
+    0 0 0 2px rgba(255, 196, 0, 0.22),
+    0 22px 50px rgba(0, 0, 0, 0.30) !important;
+}
+
+
+/* ==========================================================
+   KAFELKI USŁUG JAKO LINKI
+========================================================== */
+
+a.problem-card {
+  display: block !important;
+
+  color: inherit !important;
+
+  text-decoration: none !important;
+
+  cursor: pointer !important;
+}
+
+a.problem-card:hover {
+  text-decoration: none !important;
+}
+
+
+/* ==========================================================
+   POWIADOMIENIE:
+   NUMER SKOPIOWANY
+========================================================== */
+
+.copy-phone-toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 28px;
+
+  z-index: 99999;
+
+  transform:
+    translate(-50%, 20px);
+
+  padding:
+    13px 19px;
+
+  background:
+    #101820;
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid rgba(255, 196, 0, 0.50);
+
+  border-radius:
+    10px;
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.35);
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+  transition:
+    opacity .20s ease,
+    transform .20s ease,
+    visibility .20s ease;
+}
+
+.copy-phone-toast strong {
+  color:
+    var(--yellow);
+}
+
+.copy-phone-toast.is-visible {
+  opacity:
+    1;
+
+  visibility:
+    visible;
+
+  transform:
+    translate(-50%, 0);
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .copy-phone-toast {
+    bottom:
+      80px;
+
+    max-width:
+      calc(100% - 32px);
+
+    text-align:
+      center;
+  }
+
+}
+
+
+/* ==========================================================
+   === MECHANIK SZWECJA FIX END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === HEADER SEO WHATSAPP FIX START ===
+========================================================== */
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.site-header .nav-wrap {
+  gap: 18px !important;
+}
+
+
+/* ==========================================================
+   TEKST ZAMIAST LOGO
+========================================================== */
+
+.seo-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  flex: 0 1 315px;
+
+  max-width: 315px;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  line-height: 1.25;
+
+  letter-spacing: .005em;
+
+  text-decoration: none;
+
+  transition:
+    opacity .18s ease;
+}
+
+
+.seo-brand:hover {
+  opacity: .86;
+}
+
+
+.seo-brand span {
+  color: #ffffff;
+}
+
+
+.seo-brand b {
+  color: rgba(255, 255, 255, .42);
+  font-weight: 500;
+}
+
+
+.seo-brand strong {
+  color: var(--yellow);
+
+  font-size: 12px;
+
+  font-weight: 950;
+}
+
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+.site-header .main-nav {
+  margin-left: auto !important;
+
+  gap: 20px;
+}
+
+
+/* ==========================================================
+   NUMER TELEFONU W HEADERZE
+========================================================== */
+
+.site-header .header-call {
+  min-width: 158px;
+
+  min-height: 42px;
+
+  padding:
+    9px 15px !important;
+
+  margin-left: 0 !important;
+
+  display: flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 0 !important;
+
+  border-radius: 8px;
+
+  background:
+    var(--yellow);
+
+  color:
+    var(--ink);
+
+  line-height: 1;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 20px rgba(255, 196, 0, .13);
+
+  transition:
+    transform .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+
+  cursor: pointer;
+}
+
+
+.site-header .header-call:hover {
+  transform:
+    translateY(-1px);
+
+  background:
+    #ffd332;
+
+  box-shadow:
+    0 11px 25px rgba(255, 196, 0, .19);
+}
+
+
+.site-header .header-call strong {
+  font-size:
+    14px !important;
+
+  font-weight:
+    950;
+
+  letter-spacing:
+    .01em;
+
+  white-space:
+    nowrap;
+}
+
+
+.site-header .header-call-label {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   FLAGI KRAJÓW
+
+   84% widoczności = tylko 16% przezroczystości.
+
+   Czyli nadal są lekko transparentne,
+   ale dużo mocniejsze niż wcześniej.
+========================================================== */
+
+.country-card::before {
+  opacity:
+    .84 !important;
+}
+
+
+/* Mniej czarnej warstwy nad flagą */
+
+.country-card::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, .11),
+      rgba(0, 0, 0, .015) 76%
+    ) !important;
+}
+
+
+/* Nazwa kraju nadal w 100% wyraźna */
+
+.country-card strong {
+  opacity:
+    1 !important;
+
+  color:
+    #ffffff !important;
+
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, .90),
+    0 5px 15px rgba(0, 0, 0, .55) !important;
+}
+
+
+/* ==========================================================
+   DOLNY ŻÓŁTY PANEL - TELEFON
+========================================================== */
+
+.cta-actions .cta-phone-button {
+  min-height:
+    72px;
+
+  width:
+    100%;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center !important;
+
+  text-align:
+    center;
+
+  padding:
+    15px 24px;
+}
+
+
+.cta-actions .cta-phone-button strong {
+  width:
+    100%;
+
+  font-size:
+    clamp(20px, 2vw, 25px);
+
+  font-weight:
+    950;
+
+  line-height:
+    1;
+
+  letter-spacing:
+    .025em;
+
+  text-align:
+    center;
+}
+
+
+/* WhatsApp w dolnym żółtym panelu też wyśrodkowany */
+
+.cta-actions a[href^="https://wa.me/"] {
+  justify-content:
+    center !important;
+
+  text-align:
+    center;
+}
+
+
+/* ==========================================================
+   WHATSAPP - PRAWDZIWY LINK WA.ME
+   + ZIELONA IKONA
+========================================================== */
+
+a[href^="https://wa.me/"] {
+  align-items:
+    center;
+}
+
+
+a[href^="https://wa.me/"]::before {
+  content:
+    "";
+
+  width:
+    21px;
+
+  height:
+    21px;
+
+  flex:
+    0 0 21px;
+
+  display:
+    inline-block;
+
+  background-image:
+    url("../assets/images/whatsapp.svg");
+
+  background-position:
+    center;
+
+  background-repeat:
+    no-repeat;
+
+  background-size:
+    contain;
+}
+
+
+/* Usuwamy starą strzałkę z hero */
+
+a[href^="https://wa.me/"] .btn-icon {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   POWIADOMIENIE O SKOPIOWANIU NUMERU
+========================================================== */
+
+.copy-phone-toast {
+  position:
+    fixed;
+
+  left:
+    50%;
+
+  bottom:
+    28px;
+
+  z-index:
+    99999;
+
+  transform:
+    translate(-50%, 20px);
+
+  padding:
+    13px 20px;
+
+  background:
+    #101820;
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid rgba(255, 196, 0, .55);
+
+  border-radius:
+    10px;
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, .38);
+
+  font-size:
+    14px;
+
+  font-weight:
+    750;
+
+  white-space:
+    nowrap;
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease,
+    visibility .2s ease;
+}
+
+
+.copy-phone-toast strong {
+  color:
+    var(--yellow);
+}
+
+
+.copy-phone-toast.is-visible {
+  opacity:
+    1;
+
+  visibility:
+    visible;
+
+  transform:
+    translate(-50%, 0);
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1180px) {
+
+  .seo-brand {
+    flex-basis:
+      270px;
+
+    max-width:
+      270px;
+
+    font-size:
+      11px;
+  }
+
+
+  .seo-brand strong {
+    font-size:
+      11px;
+  }
+
+
+  .site-header .main-nav {
+    gap:
+      15px;
+  }
+
+}
+
+
+/* ==========================================================
+   PONIŻEJ 1040 PX - MENU HAMBURGER
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .seo-brand {
+    flex:
+      0 1 390px;
+
+    max-width:
+      390px;
+  }
+
+
+  .site-header .header-call {
+    margin-left:
+      auto !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .seo-brand {
+    flex:
+      1 1 auto;
+
+    max-width:
+      calc(100% - 58px);
+
+    display:
+      block;
+
+    font-size:
+      10px;
+
+    line-height:
+      1.2;
+  }
+
+
+  .seo-brand b {
+    display:
+      none;
+  }
+
+
+  .seo-brand strong {
+    display:
+      block;
+
+    margin-top:
+      3px;
+
+    font-size:
+      11px;
+  }
+
+
+  /*
+     Na telefonie numer w górnym headerze
+     ukrywamy, bo jest już dolny pasek kontaktowy.
+  */
+
+  .site-header .header-call {
+    display:
+      none !important;
+  }
+
+
+  /*
+     WhatsApp w dolnym stałym pasku.
+  */
+
+  .mobile-wa {
+    display:
+      flex !important;
+
+    align-items:
+      center;
+
+    justify-content:
+      center;
+
+    gap:
+      7px;
+  }
+
+
+  .mobile-wa::before {
+    width:
+      20px !important;
+
+    height:
+      20px !important;
+
+    flex-basis:
+      20px !important;
+  }
+
+
+  .copy-phone-toast {
+    bottom:
+      78px;
+
+    max-width:
+      calc(100% - 30px);
+
+    white-space:
+      normal;
+
+    text-align:
+      center;
+  }
+
+}
+
+
+/* ==========================================================
+   === HEADER SEO WHATSAPP FIX END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === LOGO HEADER V2 START ===
+========================================================== */
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.site-header .nav-wrap {
+  display: flex !important;
+
+  align-items: center !important;
+
+  flex-wrap: nowrap !important;
+
+  gap: 15px !important;
+}
+
+
+/* ==========================================================
+   LOGO + TYTUŁ
+========================================================== */
+
+.seo-brand {
+  display: inline-flex !important;
+
+  align-items: center !important;
+
+  flex-direction: row !important;
+
+  flex-wrap: nowrap !important;
+
+  gap: 9px !important;
+
+  flex: 0 0 auto !important;
+
+  min-width: 0 !important;
+
+  max-width: none !important;
+
+  color: #ffffff !important;
+
+  text-decoration: none !important;
+
+  white-space: nowrap !important;
+
+  line-height: 1 !important;
+
+  transition:
+    opacity .18s ease;
+}
+
+
+.seo-brand:hover {
+  opacity: .88;
+}
+
+
+/* ==========================================================
+   LOGO CIĘŻARÓWKI
+========================================================== */
+
+.seo-brand-logo {
+  display: block !important;
+
+  width: 62px !important;
+
+  height: 56px !important;
+
+  min-width: 62px !important;
+
+  flex: 0 0 62px !important;
+
+  object-fit: contain !important;
+
+  object-position: center !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+}
+
+
+/* ==========================================================
+   CAŁY NAPIS W JEDNEJ LINII
+========================================================== */
+
+.seo-brand-text {
+  display: inline-flex !important;
+
+  align-items: center !important;
+
+  flex-direction: row !important;
+
+  flex-wrap: nowrap !important;
+
+  gap: 5px !important;
+
+  white-space: nowrap !important;
+
+  color: #ffffff !important;
+
+  font-size:
+    11.5px !important;
+
+  font-weight:
+    800 !important;
+
+  letter-spacing:
+    .005em !important;
+
+  line-height:
+    1 !important;
+}
+
+
+/* Pierwsza część */
+
+.seo-brand-text > span:first-child {
+  display: inline !important;
+
+  color: #ffffff !important;
+
+  white-space: nowrap !important;
+}
+
+
+/* Pionowa kreska */
+
+.seo-brand-divider {
+  display: inline !important;
+
+  color:
+    rgba(255, 255, 255, .38) !important;
+
+  font-weight:
+    500 !important;
+}
+
+
+/* Mechanik TIR Szwecja */
+
+.seo-brand-text strong {
+  display: inline !important;
+
+  color:
+    var(--yellow) !important;
+
+  font-size:
+    11.5px !important;
+
+  font-weight:
+    950 !important;
+
+  line-height:
+    1 !important;
+
+  white-space:
+    nowrap !important;
+}
+
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+.site-header .main-nav {
+  margin-left:
+    auto !important;
+
+  gap:
+    17px !important;
+
+  white-space:
+    nowrap;
+}
+
+
+/* ==========================================================
+   NUMER TELEFONU
+========================================================== */
+
+.site-header .header-call {
+  flex:
+    0 0 auto !important;
+
+  min-width:
+    150px !important;
+
+  white-space:
+    nowrap !important;
+}
+
+
+/* ==========================================================
+   WHATSAPP
+   DUŻO WIĘKSZA IKONA
+========================================================== */
+
+a[href^="https://wa.me/"] {
+  gap:
+    12px !important;
+}
+
+
+a[href^="https://wa.me/"]::before {
+  width:
+    34px !important;
+
+  height:
+    34px !important;
+
+  min-width:
+    34px !important;
+
+  flex:
+    0 0 34px !important;
+
+  background-size:
+    contain !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+
+  filter:
+    drop-shadow(
+      0 3px 7px rgba(0, 0, 0, .18)
+    );
+}
+
+
+/* Hero - jeszcze trochę większy */
+
+.hero-actions
+a[href^="https://wa.me/"]::before {
+  width:
+    36px !important;
+
+  height:
+    36px !important;
+
+  min-width:
+    36px !important;
+
+  flex-basis:
+    36px !important;
+}
+
+
+/* WhatsApp na żółtym panelu */
+
+.cta-actions
+a[href^="https://wa.me/"]::before {
+  width:
+    36px !important;
+
+  height:
+    36px !important;
+
+  min-width:
+    36px !important;
+
+  flex-basis:
+    36px !important;
+}
+
+
+/* ==========================================================
+   1250 PX
+========================================================== */
+
+@media (max-width: 1250px) {
+
+  .seo-brand-logo {
+    width:
+      53px !important;
+
+    height:
+      49px !important;
+
+    min-width:
+      53px !important;
+
+    flex-basis:
+      53px !important;
+  }
+
+
+  .seo-brand-text,
+  .seo-brand-text strong {
+    font-size:
+      10.3px !important;
+  }
+
+
+  .site-header .main-nav {
+    gap:
+      13px !important;
+  }
+
+
+  .site-header .header-call {
+    min-width:
+      142px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   1100 PX
+========================================================== */
+
+@media (max-width: 1100px) {
+
+  .seo-brand-logo {
+    width:
+      48px !important;
+
+    height:
+      44px !important;
+
+    min-width:
+      48px !important;
+
+    flex-basis:
+      48px !important;
+  }
+
+
+  .seo-brand {
+    gap:
+      7px !important;
+  }
+
+
+  .seo-brand-text {
+    gap:
+      4px !important;
+  }
+
+
+  .seo-brand-text,
+  .seo-brand-text strong {
+    font-size:
+      9.5px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   MENU MOBILNE / TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .seo-brand {
+    margin-right:
+      auto !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      50px !important;
+
+    height:
+      46px !important;
+
+    min-width:
+      50px !important;
+
+    flex-basis:
+      50px !important;
+  }
+
+
+  .seo-brand-text,
+  .seo-brand-text strong {
+    font-size:
+      10.5px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .site-header .nav-wrap {
+    gap:
+      7px !important;
+  }
+
+
+  .seo-brand {
+    flex:
+      1 1 auto !important;
+
+    min-width:
+      0 !important;
+
+    gap:
+      5px !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      34px !important;
+
+    height:
+      32px !important;
+
+    min-width:
+      34px !important;
+
+    flex:
+      0 0 34px !important;
+  }
+
+
+  .seo-brand-text {
+    min-width:
+      0 !important;
+
+    gap:
+      3px !important;
+
+    font-size:
+      7.8px !important;
+
+    letter-spacing:
+      -.01em !important;
+  }
+
+
+  .seo-brand-text strong {
+    font-size:
+      7.8px !important;
+  }
+
+
+  /*
+     Cały napis nadal pozostaje
+     w jednej linii.
+  */
+
+  .seo-brand-text,
+  .seo-brand-text span,
+  .seo-brand-text strong {
+    white-space:
+      nowrap !important;
+  }
+
+
+  /*
+     Większy WhatsApp także
+     w dolnym pasku mobilnym.
+  */
+
+  .mobile-wa::before {
+    width:
+      29px !important;
+
+    height:
+      29px !important;
+
+    min-width:
+      29px !important;
+
+    flex-basis:
+      29px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === LOGO HEADER V2 END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === MECHANIK SZWECJA V3 START ===
+========================================================== */
+
+
+/* ==========================================================
+   HEADER - WIĘKSZY O OK. 50%
+========================================================== */
+
+.site-header .container {
+  width:
+    min(
+      calc(100% - 36px),
+      1720px
+    ) !important;
+}
+
+
+.site-header .nav-wrap {
+  min-height:
+    106px !important;
+
+  display:
+    flex !important;
+
+  align-items:
+    center !important;
+
+  flex-wrap:
+    nowrap !important;
+
+  gap:
+    18px !important;
+}
+
+
+/* ==========================================================
+   LOGO + TYTUŁ
+========================================================== */
+
+.seo-brand {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  flex-direction:
+    row !important;
+
+  flex-wrap:
+    nowrap !important;
+
+  gap:
+    14px !important;
+
+  flex:
+    0 0 auto !important;
+
+  max-width:
+    none !important;
+
+  min-width:
+    0 !important;
+
+  white-space:
+    nowrap !important;
+
+  color:
+    #ffffff !important;
+
+  text-decoration:
+    none !important;
+}
+
+
+/* Logo było ok. 62 px.
+   Teraz ok. 50% większe. */
+
+.seo-brand-logo {
+  display:
+    block !important;
+
+  width:
+    93px !important;
+
+  height:
+    84px !important;
+
+  min-width:
+    93px !important;
+
+  flex:
+    0 0 93px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* ==========================================================
+   TEKST W JEDNEJ LINII
+========================================================== */
+
+.seo-brand-text {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  flex-wrap:
+    nowrap !important;
+
+  gap:
+    7px !important;
+
+  white-space:
+    nowrap !important;
+
+  font-size:
+    17px !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.01em !important;
+}
+
+
+.seo-brand-text > span:first-child {
+  color:
+    #ffffff !important;
+}
+
+
+.seo-brand-divider {
+  color:
+    rgba(255,255,255,.42) !important;
+}
+
+
+.seo-brand-text strong {
+  color:
+    var(--yellow) !important;
+
+  font-size:
+    17px !important;
+
+  font-weight:
+    950 !important;
+
+  white-space:
+    nowrap !important;
+}
+
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+.site-header .main-nav {
+  margin-left:
+    auto !important;
+
+  gap:
+    19px !important;
+
+  white-space:
+    nowrap;
+}
+
+
+.site-header .main-nav a {
+  white-space:
+    nowrap;
+}
+
+
+/* ==========================================================
+   WHATSAPP - WIĘKSZE LOGO
+========================================================== */
+
+a[href^="https://wa.me/"] {
+  gap:
+    13px !important;
+}
+
+
+a[href^="https://wa.me/"]::before {
+  width:
+    44px !important;
+
+  height:
+    44px !important;
+
+  min-width:
+    44px !important;
+
+  flex:
+    0 0 44px !important;
+
+  background-image:
+    url("../assets/images/whatsapp.svg");
+
+  background-size:
+    contain !important;
+
+  background-repeat:
+    no-repeat !important;
+
+  background-position:
+    center !important;
+
+  filter:
+    drop-shadow(
+      0 4px 8px rgba(0,0,0,.18)
+    );
+}
+
+
+/* Hero */
+
+.hero-actions
+a[href^="https://wa.me/"]::before {
+  width:
+    48px !important;
+
+  height:
+    48px !important;
+
+  min-width:
+    48px !important;
+
+  flex-basis:
+    48px !important;
+}
+
+
+/* ==========================================================
+   ŻÓŁTA SEKCJA KONTAKTOWA
+   WHATSAPP CZARNY + BIAŁY TEKST
+========================================================== */
+
+.cta-actions
+a[href^="https://wa.me/"] {
+  min-height:
+    72px !important;
+
+  display:
+    flex !important;
+
+  align-items:
+    center !important;
+
+  justify-content:
+    center !important;
+
+  background:
+    #101820 !important;
+
+  color:
+    #ffffff !important;
+
+  border-color:
+    #101820 !important;
+
+  font-weight:
+    900 !important;
+
+  text-align:
+    center !important;
+
+  box-shadow:
+    0 13px 30px rgba(0,0,0,.18) !important;
+}
+
+
+.cta-actions
+a[href^="https://wa.me/"]:hover {
+  background:
+    #182733 !important;
+
+  color:
+    #ffffff !important;
+
+  border-color:
+    #182733 !important;
+}
+
+
+.cta-actions
+a[href^="https://wa.me/"]::before {
+  width:
+    48px !important;
+
+  height:
+    48px !important;
+
+  min-width:
+    48px !important;
+
+  flex-basis:
+    48px !important;
+}
+
+
+/* ==========================================================
+   FAQ
+========================================================== */
+
+.faq-section {
+  padding:
+    100px 0;
+
+  background:
+    #f4f6f8;
+
+  color:
+    var(--ink);
+}
+
+
+.faq-container {
+  max-width:
+    1040px;
+}
+
+
+.faq-heading {
+  max-width:
+    760px;
+
+  margin-bottom:
+    42px;
+}
+
+
+.faq-heading h2 {
+  margin:
+    12px 0 14px;
+
+  font-size:
+    clamp(34px, 4vw, 54px);
+
+  line-height:
+    1.02;
+
+  letter-spacing:
+    -.04em;
+}
+
+
+.faq-heading p {
+  margin:
+    0;
+
+  color:
+    #65727b;
+
+  font-size:
+    16px;
+
+  line-height:
+    1.65;
+}
+
+
+.faq-list {
+  display:
+    grid;
+
+  gap:
+    12px;
+}
+
+
+.faq-item {
+  overflow:
+    hidden;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid rgba(16,24,32,.10);
+
+  border-radius:
+    14px;
+
+  box-shadow:
+    0 9px 26px rgba(16,24,32,.05);
+}
+
+
+.faq-item summary {
+  position:
+    relative;
+
+  padding:
+    22px 62px 22px 24px;
+
+  cursor:
+    pointer;
+
+  list-style:
+    none;
+
+  font-size:
+    17px;
+
+  font-weight:
+    850;
+
+  line-height:
+    1.35;
+
+  transition:
+    color .18s ease,
+    background .18s ease;
+}
+
+
+.faq-item summary::-webkit-details-marker {
+  display:
+    none;
+}
+
+
+.faq-item summary::after {
+  content:
+    "+";
+
+  position:
+    absolute;
+
+  right:
+    24px;
+
+  top:
+    50%;
+
+  transform:
+    translateY(-50%);
+
+  width:
+    30px;
+
+  height:
+    30px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--yellow);
+
+  color:
+    var(--ink);
+
+  font-size:
+    22px;
+
+  font-weight:
+    900;
+
+  line-height:
+    1;
+}
+
+
+.faq-item[open] summary {
+  color:
+    #000000;
+
+  background:
+    rgba(255,196,0,.08);
+}
+
+
+.faq-item[open] summary::after {
+  content:
+    "−";
+}
+
+
+.faq-answer {
+  padding:
+    0 24px 24px;
+}
+
+
+.faq-answer p {
+  max-width:
+    850px;
+
+  margin:
+    0;
+
+  color:
+    #5f6d76;
+
+  font-size:
+    15px;
+
+  line-height:
+    1.75;
+}
+
+
+/* ==========================================================
+   NOWA STOPKA
+========================================================== */
+
+.seo-footer {
+  padding:
+    76px 0 0 !important;
+
+  background:
+    #20394b !important;
+
+  color:
+    #ffffff !important;
+}
+
+
+.seo-footer-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    1.35fr 1.15fr .85fr .9fr;
+
+  gap:
+    64px;
+}
+
+
+.seo-footer-about p {
+  max-width:
+    360px;
+
+  margin:
+    22px 0 0;
+
+  color:
+    rgba(255,255,255,.78);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.75;
+}
+
+
+.seo-footer-logo {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    13px;
+
+  color:
+    #ffffff;
+}
+
+
+.seo-footer-logo img {
+  width:
+    78px;
+
+  height:
+    70px;
+
+  object-fit:
+    contain;
+
+  flex:
+    0 0 78px;
+}
+
+
+.seo-footer-logo span {
+  display:
+    grid;
+
+  gap:
+    4px;
+}
+
+
+.seo-footer-logo strong {
+  color:
+    #ffffff;
+
+  font-size:
+    20px;
+
+  line-height:
+    1;
+}
+
+
+.seo-footer-logo small {
+  color:
+    var(--yellow);
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+}
+
+
+.seo-footer-badges {
+  margin-top:
+    22px;
+
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    8px;
+}
+
+
+.seo-footer-badges span {
+  padding:
+    7px 10px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  border-radius:
+    7px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:
+    rgba(255,255,255,.85);
+
+  font-size:
+    11px;
+
+  font-weight:
+    750;
+}
+
+
+.seo-footer-column {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    flex-start;
+
+  gap:
+    10px;
+}
+
+
+.seo-footer-column h3 {
+  margin:
+    0 0 11px;
+
+  color:
+    #ffffff;
+
+  font-size:
+    19px;
+
+  line-height:
+    1.1;
+}
+
+
+.seo-footer-column a {
+  color:
+    rgba(255,255,255,.82) !important;
+
+  font-size:
+    13px;
+
+  line-height:
+    1.45;
+
+  transition:
+    color .18s ease,
+    transform .18s ease;
+}
+
+
+.seo-footer-column a:hover {
+  color:
+    var(--yellow) !important;
+
+  transform:
+    translateX(3px);
+}
+
+
+.seo-footer-column > span {
+  color:
+    rgba(255,255,255,.62);
+
+  font-size:
+    12px;
+}
+
+
+/* ==========================================================
+   LINKI KRAJÓW W STOPCE
+========================================================== */
+
+.footer-country-link {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  gap:
+    10px !important;
+
+  font-weight:
+    800 !important;
+}
+
+
+.footer-flag {
+  position:
+    relative;
+
+  width:
+    32px;
+
+  height:
+    20px;
+
+  display:
+    inline-block;
+
+  overflow:
+    hidden;
+
+  flex:
+    0 0 32px;
+
+  border-radius:
+    3px;
+
+  box-shadow:
+    0 3px 9px rgba(0,0,0,.18);
+}
+
+
+/* SZWECJA */
+
+.footer-flag-se {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 30%,
+      #fecc00 30% 42%,
+      transparent 42%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 40%,
+      #fecc00 40% 60%,
+      transparent 60%
+    ),
+    #006aa7;
+}
+
+
+/* DANIA */
+
+.footer-flag-dk {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 30%,
+      #ffffff 30% 41%,
+      transparent 41%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 41%,
+      #ffffff 41% 59%,
+      transparent 59%
+    ),
+    #c8102e;
+}
+
+
+/* NORWEGIA */
+
+.footer-flag-no {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 33%,
+      #00205b 33% 39%,
+      transparent 39%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 46%,
+      #00205b 46% 54%,
+      transparent 54%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0 29%,
+      #ffffff 29% 43%,
+      transparent 43%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 40%,
+      #ffffff 40% 60%,
+      transparent 60%
+    ),
+    #ba0c2f;
+}
+
+
+/* ==========================================================
+   KONTAKT W STOPCE
+========================================================== */
+
+.seo-footer-phone {
+  color:
+    #ffffff !important;
+
+  font-size:
+    20px !important;
+
+  font-weight:
+    950 !important;
+
+  letter-spacing:
+    .02em;
+}
+
+
+.seo-footer-whatsapp {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  margin:
+    4px 0 7px;
+
+  color:
+    #ffffff !important;
+
+  font-weight:
+    850;
+}
+
+
+.seo-footer-whatsapp::before {
+  width:
+    32px !important;
+
+  height:
+    32px !important;
+
+  min-width:
+    32px !important;
+
+  flex-basis:
+    32px !important;
+}
+
+
+/* ==========================================================
+   DÓŁ STOPKI
+========================================================== */
+
+.seo-footer-bottom {
+  margin-top:
+    58px;
+
+  min-height:
+    72px;
+
+  padding:
+    20px 0;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    25px;
+
+  border-top:
+    1px solid rgba(255,255,255,.14);
+
+  color:
+    rgba(255,255,255,.68);
+
+  font-size:
+    12px;
+}
+
+
+.seo-footer-bottom a {
+  color:
+    rgba(255,255,255,.82);
+
+  font-weight:
+    750;
+}
+
+
+.seo-footer-bottom a:hover {
+  color:
+    var(--yellow);
+}
+
+
+/* ==========================================================
+   MNIEJSZY DESKTOP
+========================================================== */
+
+@media (max-width: 1500px) {
+
+  .seo-brand-logo {
+    width:
+      76px !important;
+
+    height:
+      69px !important;
+
+    min-width:
+      76px !important;
+
+    flex-basis:
+      76px !important;
+  }
+
+
+  .seo-brand-text,
+  .seo-brand-text strong {
+    font-size:
+      14px !important;
+  }
+
+
+  .site-header .main-nav {
+    gap:
+      14px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .site-header .nav-wrap {
+    min-height:
+      82px !important;
+  }
+
+
+  .seo-brand {
+    margin-right:
+      auto !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      62px !important;
+
+    height:
+      56px !important;
+
+    min-width:
+      62px !important;
+
+    flex-basis:
+      62px !important;
+  }
+
+
+  .seo-brand-text,
+  .seo-brand-text strong {
+    font-size:
+      11px !important;
+  }
+
+
+  .seo-footer-grid {
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:
+      48px 60px;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .seo-brand {
+    gap:
+      6px !important;
+
+    min-width:
+      0 !important;
+
+    max-width:
+      calc(100% - 54px) !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      38px !important;
+
+    height:
+      36px !important;
+
+    min-width:
+      38px !important;
+
+    flex:
+      0 0 38px !important;
+  }
+
+
+  .seo-brand-text {
+    gap:
+      3px !important;
+
+    font-size:
+      7.5px !important;
+
+    letter-spacing:
+      -.02em !important;
+  }
+
+
+  .seo-brand-text strong {
+    font-size:
+      7.5px !important;
+  }
+
+
+  .faq-section {
+    padding:
+      72px 0;
+  }
+
+
+  .faq-item summary {
+    padding:
+      19px 56px 19px 18px;
+
+    font-size:
+      15px;
+  }
+
+
+  .faq-answer {
+    padding:
+      0 18px 20px;
+  }
+
+
+  .seo-footer {
+    padding-top:
+      58px !important;
+  }
+
+
+  .seo-footer-grid {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      44px;
+  }
+
+
+  .seo-footer-bottom {
+    margin-top:
+      45px;
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    justify-content:
+      center;
+
+    padding-bottom:
+      88px;
+  }
+
+
+  .mobile-wa::before {
+    width:
+      34px !important;
+
+    height:
+      34px !important;
+
+    min-width:
+      34px !important;
+
+    flex-basis:
+      34px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === MECHANIK SZWECJA V3 END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 START ===
+========================================================== */
+
+
+/* ==========================================================
+   GÓRNY PASEK
+   PENA CIARÓWKA Z NACZEP
+========================================================== */
+
+.seo-brand-logo {
+  display:
+    block !important;
+
+  width:
+    70px !important;
+
+  height:
+    64px !important;
+
+  min-width:
+    70px !important;
+
+  flex:
+    0 0 70px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.seo-brand {
+  gap:
+    9px !important;
+}
+
+
+/* ==========================================================
+   STOPKA
+   PENA CIARÓWKA Z NACZEP
+========================================================== */
+
+.seo-footer-logo img {
+  display:
+    block !important;
+
+  width:
+    62px !important;
+
+  height:
+    58px !important;
+
+  min-width:
+    62px !important;
+
+  flex:
+    0 0 62px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* ==========================================================
+   LAPTOP
+========================================================== */
+
+@media (max-width: 1350px) {
+
+  .seo-brand-logo {
+    width:
+      62px !important;
+
+    height:
+      57px !important;
+
+    min-width:
+      62px !important;
+
+    flex-basis:
+      62px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .seo-brand-logo {
+    width:
+      52px !important;
+
+    height:
+      48px !important;
+
+    min-width:
+      52px !important;
+
+    flex-basis:
+      52px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .seo-brand-logo {
+    width:
+      37px !important;
+
+    height:
+      34px !important;
+
+    min-width:
+      37px !important;
+
+    flex-basis:
+      37px !important;
+  }
+
+
+  .seo-brand {
+    gap:
+      5px !important;
+  }
+
+
+  .seo-footer-logo img {
+    width:
+      54px !important;
+
+    height:
+      50px !important;
+
+    min-width:
+      54px !important;
+
+    flex-basis:
+      54px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 START ===
+========================================================== */
+
+
+/* ==========================================================
+   GÓRNY PASEK
+   PENA CIARÓWKA Z NACZEP
+========================================================== */
+
+.seo-brand-logo {
+  display:
+    block !important;
+
+  width:
+    70px !important;
+
+  height:
+    64px !important;
+
+  min-width:
+    70px !important;
+
+  flex:
+    0 0 70px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.seo-brand {
+  gap:
+    9px !important;
+}
+
+
+/* ==========================================================
+   STOPKA
+   PENA CIARÓWKA Z NACZEP
+========================================================== */
+
+.seo-footer-logo img {
+  display:
+    block !important;
+
+  width:
+    62px !important;
+
+  height:
+    58px !important;
+
+  min-width:
+    62px !important;
+
+  flex:
+    0 0 62px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* ==========================================================
+   LAPTOP
+========================================================== */
+
+@media (max-width: 1350px) {
+
+  .seo-brand-logo {
+    width:
+      62px !important;
+
+    height:
+      57px !important;
+
+    min-width:
+      62px !important;
+
+    flex-basis:
+      62px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .seo-brand-logo {
+    width:
+      52px !important;
+
+    height:
+      48px !important;
+
+    min-width:
+      52px !important;
+
+    flex-basis:
+      52px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .seo-brand-logo {
+    width:
+      37px !important;
+
+    height:
+      34px !important;
+
+    min-width:
+      37px !important;
+
+    flex-basis:
+      37px !important;
+  }
+
+
+  .seo-brand {
+    gap:
+      5px !important;
+  }
+
+
+  .seo-footer-logo img {
+    width:
+      54px !important;
+
+    height:
+      50px !important;
+
+    min-width:
+      54px !important;
+
+    flex-basis:
+      54px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 START ===
+========================================================== */
+
+
+/* ==========================================================
+   GÓRNY PASEK
+   PEŁNA CIĘŻARÓWKA Z NACZEPĄ
+========================================================== */
+
+.seo-brand-logo {
+  display:
+    block !important;
+
+  width:
+    70px !important;
+
+  height:
+    64px !important;
+
+  min-width:
+    70px !important;
+
+  flex:
+    0 0 70px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.seo-brand {
+  gap:
+    9px !important;
+}
+
+
+/* ==========================================================
+   STOPKA
+   PEŁNA CIĘŻARÓWKA Z NACZEPĄ
+========================================================== */
+
+.seo-footer-logo img {
+  display:
+    block !important;
+
+  width:
+    62px !important;
+
+  height:
+    58px !important;
+
+  min-width:
+    62px !important;
+
+  flex:
+    0 0 62px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* ==========================================================
+   LAPTOP
+========================================================== */
+
+@media (max-width: 1350px) {
+
+  .seo-brand-logo {
+    width:
+      62px !important;
+
+    height:
+      57px !important;
+
+    min-width:
+      62px !important;
+
+    flex-basis:
+      62px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .seo-brand-logo {
+    width:
+      52px !important;
+
+    height:
+      48px !important;
+
+    min-width:
+      52px !important;
+
+    flex-basis:
+      52px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .seo-brand-logo {
+    width:
+      37px !important;
+
+    height:
+      34px !important;
+
+    min-width:
+      37px !important;
+
+    flex-basis:
+      37px !important;
+  }
+
+
+  .seo-brand {
+    gap:
+      5px !important;
+  }
+
+
+  .seo-footer-logo img {
+    width:
+      54px !important;
+
+    height:
+      50px !important;
+
+    min-width:
+      54px !important;
+
+    flex-basis:
+      54px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === LOGO FAVICON V7 END ===
+========================================================== */
+
+
+
+/* ==========================================================
+   === SAFE V9 START ===
+========================================================== */
+
+
+/* ==========================================================
+   1. HEADER
+   LOGO + TYTUL OK. 50% WIEKSZE
+========================================================== */
+
+.site-header .container {
+  width:
+    min(
+      calc(100% - 76px),
+      1820px
+    ) !important;
+}
+
+
+.site-header .nav-wrap {
+  min-height:
+    124px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+}
+
+
+/* pełne logo ciężarówki */
+
+.seo-brand-logo {
+  display:
+    block !important;
+
+  width:
+    105px !important;
+
+  height:
+    96px !important;
+
+  min-width:
+    105px !important;
+
+  flex:
+    0 0 105px !important;
+
+  object-fit:
+    contain !important;
+
+  object-position:
+    center !important;
+
+  background:
+    transparent !important;
+
+  border:
+    0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.seo-brand {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  flex-wrap:
+    nowrap !important;
+
+  gap:
+    14px !important;
+
+  max-width:
+    none !important;
+
+  white-space:
+    nowrap !important;
+}
+
+
+/* cały tytuł większy */
+
+.seo-brand-text {
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  flex-wrap:
+    nowrap !important;
+
+  gap:
+    8px !important;
+
+  white-space:
+    nowrap !important;
+
+  font-size:
+    25px !important;
+
+  font-weight:
+    900 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.02em !important;
+}
+
+
+.seo-brand-text > span,
+.seo-brand-text strong {
+  font-size:
+    inherit !important;
+
+  line-height:
+    inherit !important;
+
+  white-space:
+    nowrap !important;
+}
+
+
+.seo-brand-text > span:first-child {
+  color:
+    #ffffff !important;
+}
+
+
+.seo-brand-divider {
+  color:
+    rgba(255,255,255,.40) !important;
+}
+
+
+.seo-brand-text strong {
+  color:
+    var(--yellow) !important;
+
+  font-weight:
+    950 !important;
+}
+
+
+/* ==========================================================
+   2. FAQ - TLO TAKIE JAK CENNIK
+========================================================== */
+
+.faq-section {
+  padding:
+    88px 0 !important;
+
+  background:
+    var(--steel) !important;
+
+  color:
+    #ffffff !important;
+}
+
+
+/* okolo 1 cm marginesu */
+
+.faq-section .container {
+  width:
+    min(
+      calc(100% - 76px),
+      1420px
+    ) !important;
+}
+
+
+.faq-heading {
+  margin-bottom:
+    34px !important;
+}
+
+
+.faq-heading h2 {
+  color:
+    #ffffff !important;
+}
+
+
+.faq-heading p {
+  color:
+    #b7c2c9 !important;
+}
+
+
+/* ==========================================================
+   3. KAFELKI FAQ
+========================================================== */
+
+.faq-list {
+  display:
+    grid !important;
+
+  gap:
+    9px !important;
+}
+
+
+.faq-item {
+  overflow:
+    hidden !important;
+
+  background:
+    rgba(8, 18, 25, .46) !important;
+
+  border:
+    1px solid rgba(255,255,255,.11) !important;
+
+  border-radius:
+    13px !important;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.10) !important;
+}
+
+
+.faq-item summary {
+  position:
+    relative !important;
+
+  min-height:
+    70px !important;
+
+  padding:
+    19px 70px 19px 22px !important;
+
+  display:
+    flex !important;
+
+  align-items:
+    center !important;
+
+  color:
+    #ffffff !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
+  font-size:
+    16px !important;
+
+  font-weight:
+    850 !important;
+
+  line-height:
+    1.4 !important;
+}
+
+
+.faq-item summary::-webkit-details-marker {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   4. IDEALNIE WYROWNANE ZOLTE KOLKO
+========================================================== */
+
+.faq-item summary::after {
+  content:
+    "" !important;
+
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  right:
+    20px !important;
+
+  width:
+    34px !important;
+
+  height:
+    34px !important;
+
+  margin:
+    0 !important;
+
+  transform:
+    translateY(-50%) !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    var(--yellow) !important;
+
+  z-index:
+    1 !important;
+}
+
+
+/* ==========================================================
+   5. PLUS
+   RYSOWANY GEOMETRYCZNIE
+========================================================== */
+
+.faq-item summary::before {
+  content:
+    "" !important;
+
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  right:
+    27px !important;
+
+  width:
+    20px !important;
+
+  height:
+    20px !important;
+
+  margin:
+    0 !important;
+
+  transform:
+    translateY(-50%) !important;
+
+  z-index:
+    2 !important;
+
+  background:
+
+    linear-gradient(
+      #101820,
+      #101820
+    )
+    center center / 14px 2px
+    no-repeat,
+
+    linear-gradient(
+      #101820,
+      #101820
+    )
+    center center / 2px 14px
+    no-repeat !important;
+}
+
+
+/* po otwarciu tylko pozioma kreska */
+
+.faq-item[open] summary::before {
+  background:
+
+    linear-gradient(
+      #101820,
+      #101820
+    )
+    center center / 14px 2px
+    no-repeat !important;
+}
+
+
+.faq-item[open] summary {
+  background:
+    rgba(255,196,0,.055) !important;
+
+  color:
+    #ffffff !important;
+}
+
+
+.faq-answer {
+  padding:
+    0 22px 22px !important;
+}
+
+
+.faq-answer p {
+  margin:
+    0 !important;
+
+  color:
+    #bdc8cf !important;
+
+  font-size:
+    14px !important;
+
+  line-height:
+    1.75 !important;
+}
+
+
+/* ==========================================================
+   6. USUWAMY DWA PRZYCISKI:
+   SE Baza w Szwecji
+   PL Kontakt po polsku
+========================================================== */
+
+.seo-footer-badges {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   7. STOPKA
+   LEKKO PRZYBLIZAMY KOLUMNY DO SIEBIE
+========================================================== */
+
+.seo-footer .container {
+  width:
+    min(
+      calc(100% - 76px),
+      1420px
+    ) !important;
+}
+
+
+.seo-footer {
+  padding-top:
+    64px !important;
+}
+
+
+.seo-footer-grid {
+  grid-template-columns:
+    1.15fr 1.05fr .72fr .78fr !important;
+
+  gap:
+    28px !important;
+
+  align-items:
+    start !important;
+}
+
+
+/* ==========================================================
+   8. USUWAMY:
+   Wszystkie miasta i obszar dzialania
+========================================================== */
+
+.seo-footer
+a[href="#gdzie-dzialamy"] {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   9. USUWAMY:
+   FAQ - serwis TIR Szwecja
+========================================================== */
+
+.seo-footer
+a[href="#faq"] {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   10. USUWAMY:
+   Kontakt po polsku
+   Mobilny serwis ciezarowek
+   Baza w Szwecji
+========================================================== */
+
+.seo-footer-contact > span {
+  display:
+    none !important;
+}
+
+
+/* ==========================================================
+   11. USUWAMY PRZYCISK:
+   DO GORY
+========================================================== */
+
+.seo-footer-bottom a,
+.seo-footer-bottom a[href="#top"] {
+  display:
+    none !important;
+}
+
+
+.seo-footer-bottom {
+  justify-content:
+    flex-start !important;
+}
+
+
+/* ==========================================================
+   12. STOPKA - TROCHE BARDZIEJ ZWARTA
+========================================================== */
+
+.seo-footer-column {
+  gap:
+    8px !important;
+}
+
+
+.seo-footer-column h3 {
+  margin-bottom:
+    9px !important;
+}
+
+
+.seo-footer-about p {
+  max-width:
+    360px !important;
+}
+
+
+.seo-footer-bottom {
+  margin-top:
+    44px !important;
+}
+
+
+/* ==========================================================
+   MNIEJSZY DESKTOP / LAPTOP
+========================================================== */
+
+@media (max-width: 1550px) {
+
+  .site-header .container {
+    width:
+      calc(100% - 64px) !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      90px !important;
+
+    height:
+      82px !important;
+
+    min-width:
+      90px !important;
+
+    flex-basis:
+      90px !important;
+  }
+
+
+  .seo-brand-text {
+    font-size:
+      20px !important;
+
+    gap:
+      6px !important;
+  }
+
+
+  .site-header .main-nav {
+    gap:
+      13px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1040px) {
+
+  .site-header .container,
+  .faq-section .container,
+  .seo-footer .container {
+    width:
+      calc(100% - 40px) !important;
+  }
+
+
+  .site-header .nav-wrap {
+    min-height:
+      88px !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      65px !important;
+
+    height:
+      60px !important;
+
+    min-width:
+      65px !important;
+
+    flex-basis:
+      65px !important;
+  }
+
+
+  .seo-brand-text {
+    font-size:
+      14px !important;
+  }
+
+
+  .seo-footer-grid {
+    grid-template-columns:
+      1fr 1fr !important;
+
+    gap:
+      38px 44px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   TELEFON
+========================================================== */
+
+@media (max-width: 760px) {
+
+  .site-header .container,
+  .faq-section .container,
+  .seo-footer .container {
+    width:
+      calc(100% - 28px) !important;
+  }
+
+
+  .seo-brand {
+    gap:
+      5px !important;
+
+    min-width:
+      0 !important;
+  }
+
+
+  .seo-brand-logo {
+    width:
+      40px !important;
+
+    height:
+      37px !important;
+
+    min-width:
+      40px !important;
+
+    flex-basis:
+      40px !important;
+  }
+
+
+  .seo-brand-text {
+    font-size:
+      8px !important;
+
+    gap:
+      3px !important;
+
+    letter-spacing:
+      -.02em !important;
+  }
+
+
+  .faq-section {
+    padding:
+      66px 0 !important;
+  }
+
+
+  .faq-item summary {
+    min-height:
+      64px !important;
+
+    padding:
+      17px 60px 17px 17px !important;
+
+    font-size:
+      15px !important;
+  }
+
+
+  .faq-item summary::after {
+    right:
+      15px !important;
+
+    width:
+      32px !important;
+
+    height:
+      32px !important;
+  }
+
+
+  .faq-item summary::before {
+    right:
+      21px !important;
+  }
+
+
+  .faq-answer {
+    padding:
+      0 17px 19px !important;
+  }
+
+
+  .seo-footer-grid {
+    grid-template-columns:
+      1fr !important;
+
+    gap:
+      34px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   === SAFE V9 END ===
+========================================================== */
