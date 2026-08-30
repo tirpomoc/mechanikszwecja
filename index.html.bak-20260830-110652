@@ -399,7 +399,6 @@
     type="image/svg+xml"
     href="assets/images/favicon-szwecja.svg?v=9"
   />
-  <link rel="stylesheet" href="css/opinie.css?v=20260830111632">
 </head>
 
 
@@ -505,10 +504,6 @@
 
         <a href="#cennik">
           Cennik
-        </a>
-
-        <a href="#faq">
-          FAQ
         </a>
 
         <a href="#opinie">
@@ -1688,148 +1683,243 @@
 
 <section class="reviews-section" id="opinie">
 
-  <div class="container reviews-container">
+  <div class="container">
 
-    <div class="reviews-heading">
+    <div class="reviews-top">
 
-      <h2>
-        Opinie klient&oacute;w
-      </h2>
+      <div class="reviews-intro reveal">
 
-      <a
-        class="reviews-more"
-        href="https://www.google.com/maps/search/?api=1&query=TIRPOMOC%20Bogate%20148%20Przasnysz"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wi&#281;cej opinii w Google Maps
-        <span aria-hidden="true">&#8599;</span>
-      </a>
+        <span class="section-label">
+          Prawdziwe opinie
+        </span>
+
+        <h2>
+          Do&#347;wiadczenie potwierdzone przez klient&oacute;w.
+        </h2>
+
+        <p>
+          Poni&#380;ej pokazuj&#281; wybrane opinie klient&oacute;w
+          polskiego serwisu TIRPOMOC. Dotycz&#261; one napraw
+          i diagnostyki wykonywanych w Polsce.
+        </p>
+
+        <p class="reviews-transparency">
+          Gdy pojawi&#261; si&#281; pierwsze realizacje w Szwecji,
+          w tej sekcji b&#281;d&#281; dodawa&#322; osobne relacje
+          z prawdziwych awarii oraz opinie klient&oacute;w.
+        </p>
+
+      </div>
+
+
+      <aside class="reviews-google-box reveal reveal-delay">
+
+        <span class="reviews-google-kicker">
+          GOOGLE MAPS
+        </span>
+
+        <strong>
+          Wi&#281;cej opinii o TIRPOMOC
+        </strong>
+
+        <p>
+          Zobacz pozosta&#322;e recenzje klient&oacute;w
+          bezpo&#347;rednio w Google Maps.
+        </p>
+
+        <a
+          class="reviews-google-button"
+          href="https://www.google.com/maps/search/?api=1&query=TIRPOMOC%20Bogate%20148%20Przasnysz"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Zobacz opinie w Google Maps
+          <span aria-hidden="true">&#8599;</span>
+        </a>
+
+      </aside>
 
     </div>
 
 
-    <div class="reviews-gallery">
+    <div class="reviews-google">
 
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="0"
-        aria-label="Powi&#281;ksz opini&#281; Zbigniewa Czuby"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-zbigniew-czuba.webp"
-          alt="Opinia klienta Zbigniew Czuba"
-          loading="lazy"
-          decoding="async"
+      <div class="reviews-subheading">
+
+        <div>
+
+          <span class="reviews-mini-label">
+            OPINIE Z GOOGLE
+          </span>
+
+          <h3>
+            Wybrane opinie z serwisu TIRPOMOC
+          </h3>
+
+        </div>
+
+        <p>
+          Kliknij opini&#281;, aby zobaczy&#263; j&#261;
+          w pe&#322;nym rozmiarze.
+        </p>
+
+      </div>
+
+
+      <div class="reviews-gallery">
+
+        <a
+          class="reviews-shot"
+          href="assets/images/opinie/opinia-google-zbigniew-czuba.webp"
+          target="_blank"
+          rel="noopener"
         >
-      </button>
+          <img
+            src="assets/images/opinie/opinia-google-zbigniew-czuba.webp"
+            alt="Opinia klienta Zbigniew Czuba z Google Maps"
+            loading="lazy"
+            decoding="async"
+            onerror="this.closest('a').style.display='none'"
+          >
+        </a>
 
 
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="1"
-        aria-label="Powi&#281;ksz opini&#281; Macieja Sokolowskiego"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-maciej-sokolowski.webp"
-          alt="Opinia klienta Maciej Sokolowski"
-          loading="lazy"
-          decoding="async"
+        <a
+          class="reviews-shot"
+          href="assets/images/opinie/opinia-google-maciej-sokolowski.webp"
+          target="_blank"
+          rel="noopener"
         >
-      </button>
+          <img
+            src="assets/images/opinie/opinia-google-maciej-sokolowski.webp"
+            alt="Opinia klienta Maciej Sokolowski z Google Maps"
+            loading="lazy"
+            decoding="async"
+            onerror="this.closest('a').style.display='none'"
+          >
+        </a>
 
 
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="2"
-        aria-label="Powi&#281;ksz opini&#281; Kuby Prusika"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-kuba-prusik.webp"
-          alt="Opinia klienta Kuba Prusik"
-          loading="lazy"
-          decoding="async"
+        <a
+          class="reviews-shot"
+          href="assets/images/opinie/opinia-google-kuba-prusik.webp"
+          target="_blank"
+          rel="noopener"
         >
-      </button>
+          <img
+            src="assets/images/opinie/opinia-google-kuba-prusik.webp"
+            alt="Opinia klienta Kuba Prusik z Google Maps"
+            loading="lazy"
+            decoding="async"
+            onerror="this.closest('a').style.display='none'"
+          >
+        </a>
 
 
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="3"
-        aria-label="Powi&#281;ksz opini&#281; Wieslawa"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-wieslaw-kulturalny.webp"
-          alt="Opinia klienta Wieslaw kulturalny"
-          loading="lazy"
-          decoding="async"
+        <a
+          class="reviews-shot"
+          href="assets/images/opinie/opinia-google-wieslaw-kulturalny.webp"
+          target="_blank"
+          rel="noopener"
         >
-      </button>
+          <img
+            src="assets/images/opinie/opinia-google-wieslaw-kulturalny.webp"
+            alt="Opinia klienta Wieslaw kulturalny z Google Maps"
+            loading="lazy"
+            decoding="async"
+            onerror="this.closest('a').style.display='none'"
+          >
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="reviews-video">
+
+      <div class="reviews-video-heading">
+
+        <div>
+
+          <span class="reviews-mini-label">
+            RELACJE WIDEO
+          </span>
+
+          <h3>
+            Prawdziwe awarie i opinie klient&oacute;w.
+          </h3>
+
+        </div>
+
+        <p>
+          Tutaj pojawi&#261; si&#281; nagrania z napraw
+          wykonywanych w Szwecji. Bez player&oacute;w na tym etapie
+          &#8212; przygotowujemy tylko miejsce pod przysz&#322;e materia&#322;y.
+        </p>
+
+      </div>
+
+
+      <div class="reviews-video-grid">
+
+        <div class="reviews-video-placeholder">
+
+          <span>01</span>
+
+          <div>
+            <strong>
+              Miejsce na relacj&#281; z naprawy
+            </strong>
+
+            <small>
+              Film + opis awarii + opinia klienta
+            </small>
+          </div>
+
+        </div>
+
+
+        <div class="reviews-video-placeholder">
+
+          <span>02</span>
+
+          <div>
+            <strong>
+              Miejsce na relacj&#281; z naprawy
+            </strong>
+
+            <small>
+              Film + opis awarii + opinia klienta
+            </small>
+          </div>
+
+        </div>
+
+
+        <div class="reviews-video-placeholder">
+
+          <span>03</span>
+
+          <div>
+            <strong>
+              Miejsce na relacj&#281; z naprawy
+            </strong>
+
+            <small>
+              Film + opis awarii + opinia klienta
+            </small>
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
 </section>
-
-
-<div
-  class="reviews-lightbox"
-  id="reviews-lightbox"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Powi&#281;kszona opinia klienta"
-  hidden
->
-
-  <button
-    class="reviews-lightbox-close"
-    type="button"
-    aria-label="Zamknij"
-  >
-    &times;
-  </button>
-
-
-  <button
-    class="reviews-lightbox-arrow reviews-lightbox-prev"
-    type="button"
-    aria-label="Poprzednia opinia"
-  >
-    &#10094;
-  </button>
-
-
-  <div class="reviews-lightbox-stage">
-
-    <img
-      class="reviews-lightbox-image"
-      src=""
-      alt=""
-    >
-
-    <div class="reviews-lightbox-counter">
-      <span class="reviews-current">1</span>
-      /
-      <span class="reviews-total">4</span>
-    </div>
-
-  </div>
-
-
-  <button
-    class="reviews-lightbox-arrow reviews-lightbox-next"
-    type="button"
-    aria-label="Nast&#281;pna opinia"
-  >
-    &#10095;
-  </button>
-
-</div>
 
 <!-- === OPINIE END === -->
 
@@ -2173,7 +2263,6 @@
   <script src="js/main.js?v=20260829231128"></script>
 
 
-  <script src="js/opinie.js?v=20260830111316"></script>
 </body>
 
 </html>

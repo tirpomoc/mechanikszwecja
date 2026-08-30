@@ -399,7 +399,7 @@
     type="image/svg+xml"
     href="assets/images/favicon-szwecja.svg?v=9"
   />
-  <link rel="stylesheet" href="css/opinie.css?v=20260830111632">
+  <link rel="stylesheet" href="css/opinie.css?v=20260830111316">
 </head>
 
 
@@ -505,10 +505,6 @@
 
         <a href="#cennik">
           Cennik
-        </a>
-
-        <a href="#faq">
-          FAQ
         </a>
 
         <a href="#opinie">

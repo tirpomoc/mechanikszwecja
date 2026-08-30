@@ -38,7 +38,7 @@
 
   <link
     rel="stylesheet"
-    href="css/style.css?v=20260830093400"
+    href="css/style.css?v=20260829231128"
   />
 
 
@@ -399,7 +399,6 @@
     type="image/svg+xml"
     href="assets/images/favicon-szwecja.svg?v=9"
   />
-  <link rel="stylesheet" href="css/opinie.css?v=20260830111632">
 </head>
 
 
@@ -505,14 +504,6 @@
 
         <a href="#cennik">
           Cennik
-        </a>
-
-        <a href="#faq">
-          FAQ
-        </a>
-
-        <a href="#opinie">
-          Opinie
         </a>
 
         <a href="#kontakt">
@@ -840,6 +831,11 @@
 
           </div>
 
+          <p class="video-note">
+            Film uruchomi się dopiero po kliknięciu przycisku PLAY.
+            Do tego momentu strona wyświetla tylko lekką miniaturkę.
+          </p>
+
         </div>
 
 
@@ -1140,6 +1136,12 @@
 
 
           </div>
+
+
+          <p class="small-note">
+            Obszar działania oraz podstrony poszczególnych
+            miast uzupełnimy zgodnie z faktycznym zasięgiem serwisu.
+          </p>
 
 
         </div>
@@ -1684,154 +1686,6 @@
       </div>
 
     </section>
-<!-- === OPINIE START === -->
-
-<section class="reviews-section" id="opinie">
-
-  <div class="container reviews-container">
-
-    <div class="reviews-heading">
-
-      <h2>
-        Opinie klient&oacute;w
-      </h2>
-
-      <a
-        class="reviews-more"
-        href="https://www.google.com/maps/search/?api=1&query=TIRPOMOC%20Bogate%20148%20Przasnysz"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wi&#281;cej opinii w Google Maps
-        <span aria-hidden="true">&#8599;</span>
-      </a>
-
-    </div>
-
-
-    <div class="reviews-gallery">
-
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="0"
-        aria-label="Powi&#281;ksz opini&#281; Zbigniewa Czuby"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-zbigniew-czuba.webp"
-          alt="Opinia klienta Zbigniew Czuba"
-          loading="lazy"
-          decoding="async"
-        >
-      </button>
-
-
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="1"
-        aria-label="Powi&#281;ksz opini&#281; Macieja Sokolowskiego"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-maciej-sokolowski.webp"
-          alt="Opinia klienta Maciej Sokolowski"
-          loading="lazy"
-          decoding="async"
-        >
-      </button>
-
-
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="2"
-        aria-label="Powi&#281;ksz opini&#281; Kuby Prusika"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-kuba-prusik.webp"
-          alt="Opinia klienta Kuba Prusik"
-          loading="lazy"
-          decoding="async"
-        >
-      </button>
-
-
-      <button
-        class="reviews-shot"
-        type="button"
-        data-review-index="3"
-        aria-label="Powi&#281;ksz opini&#281; Wieslawa"
-      >
-        <img
-          src="assets/images/opinie/opinia-google-wieslaw-kulturalny.webp"
-          alt="Opinia klienta Wieslaw kulturalny"
-          loading="lazy"
-          decoding="async"
-        >
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<div
-  class="reviews-lightbox"
-  id="reviews-lightbox"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Powi&#281;kszona opinia klienta"
-  hidden
->
-
-  <button
-    class="reviews-lightbox-close"
-    type="button"
-    aria-label="Zamknij"
-  >
-    &times;
-  </button>
-
-
-  <button
-    class="reviews-lightbox-arrow reviews-lightbox-prev"
-    type="button"
-    aria-label="Poprzednia opinia"
-  >
-    &#10094;
-  </button>
-
-
-  <div class="reviews-lightbox-stage">
-
-    <img
-      class="reviews-lightbox-image"
-      src=""
-      alt=""
-    >
-
-    <div class="reviews-lightbox-counter">
-      <span class="reviews-current">1</span>
-      /
-      <span class="reviews-total">4</span>
-    </div>
-
-  </div>
-
-
-  <button
-    class="reviews-lightbox-arrow reviews-lightbox-next"
-    type="button"
-    aria-label="Nast&#281;pna opinia"
-  >
-    &#10095;
-  </button>
-
-</div>
-
-<!-- === OPINIE END === -->
 
 <section
       class="cta-section"
@@ -2173,7 +2027,6 @@
   <script src="js/main.js?v=20260829231128"></script>
 
 
-  <script src="js/opinie.js?v=20260830111316"></script>
 </body>
 
 </html>
