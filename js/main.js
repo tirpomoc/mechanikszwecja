@@ -316,7 +316,7 @@ document
             )
             .trim()
           ||
-          '+46700000000';
+          '+48660845125';
 
 
         const strong =
@@ -355,7 +355,7 @@ document
           displayedPhone =
             phoneMatch
               ? phoneMatch[0].trim()
-              : '+46 70 000 00 00';
+              : '+48 660 845 125';
 
         }
 

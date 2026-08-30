@@ -5009,3 +5009,54 @@ a[href="#faq"] {
 }
 
 /* === PATCH END: header-extra-compact === */
+
+
+/* === SERVICE LINKS START === */
+
+
+/* Linki pod glownym opisem hero */
+
+.hero-services a {
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: color .18s ease;
+}
+
+.hero-services a:hover {
+  color: var(--yellow) !important;
+}
+
+.hero-services a:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+
+/* Linki w pasku uslug */
+
+.signal-grid span a {
+  color: inherit !important;
+  text-decoration: none !important;
+  width: 100%;
+}
+
+.signal-grid span a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.signal-grid span a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+
+/* Po usunieciu drugiego akapitu sekcja O mnie
+   nie zostawia dodatkowego marginesu pod tekstem */
+
+.about-local-copy > p:last-child {
+  margin-bottom: 0 !important;
+}
+
+
+/* === SERVICE LINKS END === */

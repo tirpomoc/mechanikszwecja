@@ -3,3 +3,5 @@ _broken-*/
 node_modules/
 .DS_Store
 Thumbs.db
+
+*.bak-*
