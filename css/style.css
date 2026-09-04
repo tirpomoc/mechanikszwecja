@@ -5274,3 +5274,67 @@ section,
 .seo-breadcrumb span[aria-current="page"] { opacity: .72; }
 .seo-footer-heading { margin-top: 0; }
 /* === SEO SEMANTICS FINAL END === */
+
+
+/* === FINAL PROMPT POLISH START === */
+
+.company-data {
+  display: grid !important;
+  gap: 2px !important;
+  margin-top: 14px !important;
+  font-style: normal !important;
+}
+
+.company-data-title {
+  display: block !important;
+  margin-bottom: 3px !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+.company-data > span {
+  display: block !important;
+  color: rgba(255,255,255,.78) !important;
+  line-height: 1.55 !important;
+}
+
+.seo-footer-heading {
+  margin: 0 0 9px !important;
+  color: #ffffff !important;
+  font-size: 19px !important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+}
+
+.seo-breadcrumb {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 18px !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  color: rgba(255,255,255,.70) !important;
+}
+
+.seo-breadcrumb a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.seo-breadcrumb a:hover,
+.seo-breadcrumb a:focus-visible {
+  color: var(--yellow, #ffc400) !important;
+}
+
+@media (max-width: 760px) {
+  .company-data {
+    gap: 1px !important;
+  }
+
+  .seo-breadcrumb {
+    margin-bottom: 14px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* === FINAL PROMPT POLISH END === */
