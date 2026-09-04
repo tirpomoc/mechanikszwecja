@@ -253,7 +253,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   pointer-events: none;
 }
 
-/* Szwecja — pionowa belka krzyża celowo przesunięta w lewo */
+/* Szwecja - pionowa belka krzyża celowo przesunięta w lewo */
 .country-card-sweden::before {
   background:
     linear-gradient(90deg, transparent 0 31.25%, #fecc02 31.25% 43.75%, transparent 43.75%),
@@ -781,7 +781,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 /* =========================================
-   NOWY HERO — SEO / LOKALNY MECHANIK
+   NOWY HERO - SEO / LOKALNY MECHANIK
 ========================================== */
 
 .hero {
@@ -790,7 +790,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 
-/* JEDNA KOLUMNA — BEZ KARTY PO PRAWEJ */
+/* JEDNA KOLUMNA - BEZ KARTY PO PRAWEJ */
 
 .hero-grid {
   position: relative;
@@ -948,7 +948,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 /* =========================================
-   O SERWISIE — WIDEO Z LEKKĄ MINIATURKĄ
+   O SERWISIE - WIDEO Z LEKKĄ MINIATURKĄ
 ========================================== */
 
 .about-local-video {
@@ -5060,3 +5060,185 @@ a[href="#faq"] {
 
 
 /* === SERVICE LINKS END === */
+
+/* MECHANIKSZWECJA-MOBILE-WIDTH-START */
+
+
+/* Druga linia tekstu w hero */
+.hero-lead-second {
+    display: block;
+    margin-top: 5px;
+}
+
+
+/* Dane firmy w stopce */
+.seo-footer-company {
+    margin-top: 24px;
+    display: grid;
+    gap: 4px;
+    color: rgba(255,255,255,.70);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.seo-footer-company strong {
+    margin-bottom: 4px;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.seo-footer-company span {
+    display: block;
+}
+
+
+/* Globalna ochrona przed rozszerzaniem dokumentu */
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+
+/* Media nie rozszerzaja strony */
+img,
+video,
+iframe,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+
+/* Elementy grid/flex musza moc sie zwezac */
+main,
+header,
+footer,
+section,
+.container,
+.nav-wrap,
+.main-nav,
+.hero,
+.hero-grid,
+.hero-content,
+.hero-actions,
+.signal-grid,
+.about-local-grid,
+.steps-grid,
+.problem-grid,
+.services-layout,
+.local-grid,
+.city-links-inner,
+.city-links-heading,
+.country-tabs,
+.country-card,
+.faq-container,
+.faq-list,
+.cta-inner,
+.seo-footer-grid,
+.seo-footer-about,
+.seo-footer-column,
+.reviews-section,
+.reviews-container,
+.reviews-gallery,
+.reviews-current,
+.mobile-actions {
+    min-width: 0;
+}
+
+
+/* TELEFON / TABLET */
+@media (max-width: 900px) {
+
+    html,
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        overflow-x: clip !important;
+    }
+
+
+    .site-header,
+    .main-nav,
+    main,
+    section,
+    footer,
+    .hero,
+    .signal-strip,
+    .city-links-section,
+    .faq-section,
+    .seo-footer,
+    .reviews-section {
+        max-width: 100% !important;
+    }
+
+
+    .container,
+    .nav-wrap,
+    .hero-grid,
+    .hero-content,
+    .hero-actions,
+    .signal-grid,
+    .about-local-grid,
+    .steps-grid,
+    .problem-grid,
+    .services-layout,
+    .local-grid,
+    .city-links-inner,
+    .city-links-heading,
+    .country-tabs,
+    .country-card,
+    .faq-container,
+    .faq-list,
+    .cta-inner,
+    .seo-footer-grid,
+    .seo-footer-about,
+    .seo-footer-column,
+    .reviews-container,
+    .reviews-gallery,
+    .reviews-current {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+
+    .hero,
+    .city-links-section,
+    .reviews-section,
+    .seo-footer {
+        overflow-x: hidden !important;
+        overflow-x: clip !important;
+    }
+
+
+    .main-nav {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+
+    .mobile-actions {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+}
+
+
+/* MECHANIKSZWECJA-MOBILE-WIDTH-END */
