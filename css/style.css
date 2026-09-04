@@ -3145,7 +3145,8 @@ a[href^="https://wa.me/"]::before {
 }
 
 
-.seo-footer-column h3 {
+.seo-footer-column h3,
+.seo-footer-column .seo-footer-heading {
   margin:
     0 0 11px;
 
@@ -4698,7 +4699,8 @@ a[href="#faq"] {
 }
 
 
-.seo-footer-column h3 {
+.seo-footer-column h3,
+.seo-footer-column .seo-footer-heading {
   margin-bottom:
     9px !important;
 }
@@ -5242,3 +5244,33 @@ section,
 
 
 /* MECHANIKSZWECJA-MOBILE-WIDTH-END */
+
+/* === SEO SEMANTICS FINAL START === */
+.faq-item summary h3 {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: inherit !important;
+  font: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+}
+.country-choice-title {
+  margin: 34px 0 20px;
+  color: #ffffff;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+.seo-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  padding-bottom: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.seo-breadcrumb a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.seo-breadcrumb span[aria-current="page"] { opacity: .72; }
+.seo-footer-heading { margin-top: 0; }
+/* === SEO SEMANTICS FINAL END === */
