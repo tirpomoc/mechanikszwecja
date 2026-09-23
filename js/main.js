@@ -150,402 +150,255 @@ if (year) {
 }
 
 
-/* =========================================
-   KOPIOWANIE NUMERU TELEFONU
+/* MECHANIK_SZWECJA_FIX_01
+   Linki tel: korzystają z normalnej obsługi telefonu.
+   Nie przechwytujemy ich kliknięć.
+*/
 
-   Kliknięcie numeru:
-   - kopiuje numer
-   - pokazuje komunikat
+const galleryItems=[
+{src:'/assets/images/pierwsze.webp',alt:'Polski mechanik mobilnego serwisu TIR w Szwecji',width:900,height:1194},
+{src:'/assets/images/drugie.webp',alt:'Narzędzia i wyposażenie mobilnego serwisu',width:1200,height:904},
+{src:'/assets/images/trzecie.webp',alt:'Wyposażenie mobilnego serwisu przewożone w samochodzie',width:1200,height:1594}
+];
+document.querySelectorAll('[data-photo-gallery]').forEach(g=>{
+const im=g.querySelector('[data-gallery-image]'),pr=g.querySelector('[data-gallery-prev]'),nx=g.querySelector('[data-gallery-next]'),lb=g.querySelector('[data-gallery-lightbox]'),li=g.querySelector('[data-gallery-lightbox-image]'),cl=g.querySelectorAll('[data-gallery-close]');
+if(!im||!pr||!nx||!lb||!li)return;let x=0,busy=false;
+const buttons=()=>{pr.hidden=x===0;nx.hidden=x===galleryItems.length-1};
+const light=()=>{const a=galleryItems[x];li.src=a.src;li.alt=a.alt;li.width=a.width;li.height=a.height};
+const open=()=>{light();lb.hidden=false;lb.setAttribute('aria-hidden','false');document.body.classList.add('gallery-open')};
+const close=()=>{lb.hidden=true;lb.setAttribute('aria-hidden','true');document.body.classList.remove('gallery-open');im.focus({preventScroll:true})};
+const show=async n=>{if(busy||n<0||n>=galleryItems.length||n===x)return;busy=true;pr.disabled=nx.disabled=true;const a=galleryItems[n],z=new Image();z.decoding='async';z.src=a.src;try{if(z.decode)await z.decode();else await new Promise((ok,no)=>{z.onload=ok;z.onerror=no})}catch(e){}im.src=a.src;im.alt=a.alt;im.width=a.width;im.height=a.height;x=n;busy=false;pr.disabled=nx.disabled=false;buttons()};
+pr.onclick=()=>show(x-1);nx.onclick=()=>show(x+1);im.onclick=open;im.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}};cl.forEach(q=>q.onclick=close);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)close()});buttons();
+});
 
-   Dolny przycisk:
-   "ZADZWOŃ"
-   nadal wykonuje połączenie.
-========================================== */
 
-let phoneToastTimer;
+/* FULLSCREEN PHOTO SCRIPT START */
 
+(() => {
 
-function getPhoneToast() {
-
-  let toast =
+  const galleryImage =
     document.querySelector(
-      '.copy-phone-toast'
+      '[data-gallery-image]'
     );
 
 
-  if (!toast) {
-
-    toast =
-      document.createElement(
-        'div'
-      );
-
-
-    toast.className =
-      'copy-phone-toast';
-
-
-    toast.setAttribute(
-      'role',
-      'status'
-    );
-
-
-    toast.setAttribute(
-      'aria-live',
-      'polite'
-    );
-
-
-    document.body.appendChild(
-      toast
-    );
-
+  if (!galleryImage) {
+    return;
   }
 
 
-  return toast;
+  /*
+    Tworzymy fullscreen bezpośrednio w BODY.
+    Dzięki temu żadna sekcja, transformacja ani
+    content-visibility nie może ograniczyć jego rozmiaru.
+  */
 
-}
-
-
-function showPhoneToast(phone) {
-
-  const toast =
-    getPhoneToast();
-
-
-  toast.innerHTML =
-    `<strong>Skopiowano:</strong> ${phone}`;
-
-
-  toast.classList.add(
-    'is-visible'
-  );
-
-
-  window.clearTimeout(
-    phoneToastTimer
-  );
-
-
-  phoneToastTimer =
-    window.setTimeout(
-      () => {
-
-        toast.classList.remove(
-          'is-visible'
-        );
-
-      },
-      2200
-    );
-
-}
-
-
-function fallbackCopy(text) {
-
-  const textarea =
+  const overlay =
     document.createElement(
-      'textarea'
+      'div'
     );
 
 
-  textarea.value =
-    text;
+  overlay.className =
+    'photo-fullscreen-overlay';
 
 
-  textarea.setAttribute(
-    'readonly',
-    ''
+  overlay.hidden =
+    true;
+
+
+  overlay.setAttribute(
+    'aria-hidden',
+    'true'
   );
 
 
-  textarea.style.position =
-    'fixed';
+  overlay.innerHTML = `
+    <button
+      class="photo-fullscreen-backdrop"
+      type="button"
+      aria-label="Zamknij powiększone zdjęcie"
+    ></button>
 
+    <div
+      class="photo-fullscreen-content"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Powiększone zdjęcie"
+    >
 
-  textarea.style.left =
-    '-9999px';
+      <img
+        class="photo-fullscreen-image"
+        alt=""
+        decoding="async"
+      >
 
+    </div>
 
-  textarea.style.opacity =
-    '0';
+    <button
+      class="photo-fullscreen-close"
+      type="button"
+      aria-label="Zamknij zdjęcie"
+    >
+      ×
+    </button>
+  `;
 
 
   document.body.appendChild(
-    textarea
+    overlay
   );
 
 
-  textarea.select();
-
-
-  document.execCommand(
-    'copy'
-  );
-
-
-  textarea.remove();
-
-}
-
-
-document
-  .querySelectorAll(
-    'a[href^="tel:"]:not(.mobile-call)'
-  )
-  .forEach((link) => {
-
-    link.addEventListener(
-      'click',
-      async (event) => {
-
-        event.preventDefault();
-
-
-        const rawPhone =
-          link
-            .getAttribute(
-              'href'
-            )
-            ?.replace(
-              /^tel:/,
-              ''
-            )
-            .trim()
-          ||
-          '+48660845125';
-
-
-        const strong =
-          link.querySelector(
-            'strong'
-          );
-
-
-        let displayedPhone =
-          strong
-            ?.textContent
-            ?.trim();
-
-
-        if (
-          !displayedPhone ||
-          !displayedPhone.includes('+')
-        ) {
-
-          const text =
-            link
-              .textContent
-              .replace(
-                /\s+/g,
-                ' '
-              )
-              .trim();
-
-
-          const phoneMatch =
-            text.match(
-              /\+\d[\d\s-]{6,}/
-            );
-
-
-          displayedPhone =
-            phoneMatch
-              ? phoneMatch[0].trim()
-              : '+48 660 845 125';
-
-        }
-
-
-        try {
-
-          if (
-            navigator.clipboard &&
-            window.isSecureContext
-          ) {
-
-            await navigator
-              .clipboard
-              .writeText(
-                rawPhone
-              );
-
-          } else {
-
-            fallbackCopy(
-              rawPhone
-            );
-
-          }
-
-
-          showPhoneToast(
-            displayedPhone
-          );
-
-        } catch (error) {
-
-          fallbackCopy(
-            rawPhone
-          );
-
-
-          showPhoneToast(
-            displayedPhone
-          );
-
-        }
-
-      }
+  const fullscreenImage =
+    overlay.querySelector(
+      '.photo-fullscreen-image'
     );
 
-  });
+
+  const backdrop =
+    overlay.querySelector(
+      '.photo-fullscreen-backdrop'
+    );
 
 
-/* =========================================
-   FILM YOUTUBE
-========================================== */
-
-document
-  .querySelectorAll(
-    '.video-player[data-video-id]'
-  )
-  .forEach((player) => {
-
-    const videoId =
-      player.dataset
-        .videoId
-        ?.trim();
+  const closeButton =
+    overlay.querySelector(
+      '.photo-fullscreen-close'
+    );
 
 
-    const button =
-      player.querySelector(
-        '.video-facade'
+  const openFullscreen = () => {
+
+    /*
+      Bierzemy AKTUALNE zdjęcie z galerii,
+      więc działa dla pierwszego, drugiego
+      i trzeciego zdjęcia.
+    */
+
+    fullscreenImage.src =
+      galleryImage.currentSrc ||
+      galleryImage.src;
+
+
+    fullscreenImage.alt =
+      galleryImage.alt || '';
+
+
+    overlay.hidden =
+      false;
+
+
+    overlay.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+
+    document.body
+      .classList
+      .add(
+        'photo-fullscreen-open'
       );
 
 
-    const thumbnail =
-      player.querySelector(
-        '.video-thumbnail'
+    closeButton.focus();
+
+  };
+
+
+  const closeFullscreen = () => {
+
+    overlay.hidden =
+      true;
+
+
+    overlay.setAttribute(
+      'aria-hidden',
+      'true'
+    );
+
+
+    document.body
+      .classList
+      .remove(
+        'photo-fullscreen-open'
       );
 
-
-    const hasVideo =
-      videoId &&
-      videoId !==
-        'TU_WSTAW_ID_FILMU_Z_YOUTUBE';
+  };
 
 
-    /* =====================================
-       MINIATURA
-    ====================================== */
+  /*
+    Capture = true:
+    przechwytujemy kliknięcie wcześniej niż
+    starszy kod lightboxa, żeby nie otworzyły
+    się dwie warstwy jednocześnie.
+  */
 
-    if (
-      thumbnail &&
-      hasVideo
-    ) {
+  galleryImage.addEventListener(
+    'click',
+    (event) => {
 
-      let fallbackUsed =
-        false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
 
+      openFullscreen();
 
-      thumbnail.src =
-        `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-
-
-      thumbnail.addEventListener(
-        'load',
-        () => {
-
-          thumbnail
-            .classList
-            .add(
-              'is-loaded'
-            );
-
-        }
-      );
+    },
+    true
+  );
 
 
-      thumbnail.addEventListener(
-        'error',
-        () => {
+  galleryImage.addEventListener(
+    'keydown',
+    (event) => {
 
-          if (fallbackUsed) {
-            return;
-          }
+      if (
+        event.key !== 'Enter' &&
+        event.key !== ' '
+      ) {
+        return;
+      }
 
 
-          fallbackUsed =
-            true;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      openFullscreen();
+
+    },
+    true
+  );
 
 
-          thumbnail.src =
-            `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  backdrop.addEventListener(
+    'click',
+    closeFullscreen
+  );
 
-        }
-      );
+
+  closeButton.addEventListener(
+    'click',
+    closeFullscreen
+  );
+
+
+  document.addEventListener(
+    'keydown',
+    (event) => {
+
+      if (
+        event.key === 'Escape' &&
+        !overlay.hidden
+      ) {
+
+        closeFullscreen();
+
+      }
 
     }
+  );
 
+})();
 
-    /* =====================================
-       YOUTUBE PO KLIKNIĘCIU
-    ====================================== */
-
-    button?.addEventListener(
-      'click',
-      () => {
-
-        if (!hasVideo) {
-
-          console.warn(
-            'Wstaw ID filmu YouTube w data-video-id w pliku index.html.'
-          );
-
-          return;
-
-        }
-
-
-        const iframe =
-          document.createElement(
-            'iframe'
-          );
-
-
-        iframe.src =
-          `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
-
-
-        iframe.title =
-          'Film o serwisie Polski Mechanik w Szwecji';
-
-
-        iframe.allow =
-          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-
-
-        iframe.allowFullscreen =
-          true;
-
-
-        iframe.referrerPolicy =
-          'strict-origin-when-cross-origin';
-
-
-        player.replaceChildren(
-          iframe
-        );
-
-      }
-    );
-
-  });
-
-
-
-
+/* FULLSCREEN PHOTO SCRIPT END */

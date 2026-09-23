@@ -5338,3 +5338,472 @@ section,
 }
 
 /* === FINAL PROMPT POLISH END === */
+
+/* GALERIA O MNIE */
+.about-local-gallery{min-width:0;content-visibility:auto;contain-intrinsic-size:430px}
+.about-gallery-frame{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:var(--radius);background:var(--steel);border:1px solid rgba(16,24,32,.08);box-shadow:var(--shadow)}
+.about-gallery-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center;cursor:zoom-in}
+.about-gallery-image:focus-visible{outline:4px solid var(--yellow);outline-offset:-4px}
+.about-gallery-arrow{position:absolute;z-index:5;top:50%;width:52px;height:52px;padding:0;margin:0;border:0;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:var(--ink);cursor:pointer;transform:translateY(-50%);box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.about-gallery-arrow svg{display:block;width:25px;height:25px;margin:0;padding:0}
+.about-gallery-arrow:hover{background:#ffd42b}.about-gallery-arrow[hidden]{display:none}.about-gallery-arrow-prev{left:18px}.about-gallery-arrow-next{right:18px}
+body.gallery-open{overflow:hidden}.about-lightbox[hidden]{display:none}.about-lightbox{position:fixed;z-index:10000;inset:0}
+.about-lightbox-backdrop{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;background:rgba(3,8,12,.90);cursor:zoom-out}
+.about-lightbox-dialog{position:absolute;z-index:2;inset:3vh 3vw;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.about-lightbox-image{display:block;width:auto;height:auto;max-width:94vw;max-height:94vh;object-fit:contain;border-radius:12px;background:#0b1319;box-shadow:0 30px 90px rgba(0,0,0,.55);pointer-events:auto}
+.about-lightbox-close{position:fixed;z-index:10001;top:22px;right:22px;width:50px;height:50px;margin:0;padding:0 0 4px;border:1px solid rgba(255,255,255,.28);border-radius:50%;display:grid;place-items:center;background:rgba(13,24,32,.86);color:#fff;font:300 34px/1 Arial,sans-serif;cursor:pointer;pointer-events:auto}
+.about-lightbox-close:hover{background:var(--yellow);color:var(--ink)}
+@media(max-width:760px){.about-gallery-arrow{width:44px;height:44px}.about-gallery-arrow svg{width:22px;height:22px}.about-gallery-arrow-prev{left:10px}.about-gallery-arrow-next{right:10px}.about-lightbox-dialog{inset:4vh 3vw}.about-lightbox-image{max-width:94vw;max-height:90vh}.about-lightbox-close{top:14px;right:14px;width:46px;height:46px;font-size:30px}}
+
+
+/* FULLSCREEN PHOTO OVERLAY START */
+
+body.photo-fullscreen-open {
+  overflow: hidden !important;
+}
+
+.photo-fullscreen-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding:
+    clamp(24px, 4vh, 64px)
+    clamp(36px, 6vw, 120px) !important;
+
+  box-sizing: border-box !important;
+}
+
+.photo-fullscreen-overlay[hidden] {
+  display: none !important;
+}
+
+.photo-fullscreen-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+
+  background: rgba(3, 8, 12, .95) !important;
+
+  cursor: zoom-out !important;
+}
+
+.photo-fullscreen-content {
+  position: relative !important;
+  z-index: 2 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  pointer-events: none !important;
+}
+
+.photo-fullscreen-image {
+  display: block !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  max-width: 100% !important;
+  max-height: 100% !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  border-radius: 12px !important;
+
+  background: #0b1319 !important;
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, .65) !important;
+
+  pointer-events: auto !important;
+}
+
+.photo-fullscreen-close {
+  position: fixed !important;
+
+  top: 20px !important;
+  right: 20px !important;
+
+  z-index: 2147483001 !important;
+
+  width: 54px !important;
+  height: 54px !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  padding: 0 0 4px !important;
+  margin: 0 !important;
+
+  border:
+    1px solid rgba(255, 255, 255, .30) !important;
+
+  border-radius: 50% !important;
+
+  background: rgba(13, 24, 32, .92) !important;
+  color: #fff !important;
+
+  font-family: Arial, sans-serif !important;
+  font-size: 35px !important;
+  font-weight: 300 !important;
+  line-height: 1 !important;
+
+  cursor: pointer !important;
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, .36) !important;
+}
+
+.photo-fullscreen-close:hover {
+  background: var(--yellow) !important;
+  color: var(--ink) !important;
+}
+
+.photo-fullscreen-close:focus-visible {
+  outline: 3px solid var(--yellow) !important;
+  outline-offset: 3px !important;
+}
+
+
+/* Stary lightbox nie jest już używany */
+.about-lightbox {
+  display: none !important;
+}
+
+
+@media (max-width: 760px) {
+
+  .photo-fullscreen-overlay {
+    padding:
+      22px
+      16px !important;
+  }
+
+  .photo-fullscreen-image {
+    border-radius: 8px !important;
+  }
+
+  .photo-fullscreen-close {
+    top: 12px !important;
+    right: 12px !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    font-size: 31px !important;
+  }
+
+}
+
+/* FULLSCREEN PHOTO OVERLAY END */
+
+
+/* ABOUT FINAL LAYOUT START */
+
+#o-mnie .about-local-copy .eyebrow,
+#o-mnie .about-local-copy .section-eyebrow,
+#o-mnie .about-local-copy .kicker,
+#o-mnie .about-local-copy .pretitle {
+  display: none !important;
+}
+
+#o-mnie .about-local-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 400px !important;
+  gap: 56px !important;
+  align-items: start !important;
+}
+
+#o-mnie .about-local-copy {
+  min-width: 0 !important;
+  max-width: 760px !important;
+  padding-right: 0 !important;
+}
+
+#o-mnie .about-local-copy h2,
+#o-mnie .about-local-copy .about-local-title {
+  margin: 0 0 24px !important;
+  font-size: clamp(28px, 2.8vw, 50px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.025em !important;
+  text-align: left !important;
+  white-space: normal !important;
+  max-width: 12ch !important;
+}
+
+#o-mnie .about-local-description {
+  display: grid;
+  gap: 22px;
+  max-width: 33em;
+}
+
+#o-mnie .about-local-description p {
+  margin: 0;
+  font-size: clamp(18px, 1.18vw, 24px);
+  line-height: 1.7;
+  color: #5f6b75;
+  font-weight: 400 !important;
+}
+
+#o-mnie .about-local-description strong,
+#o-mnie .about-local-description b {
+  font-weight: inherit !important;
+  color: inherit !important;
+}
+
+#o-mnie .about-local-gallery {
+  width: 100%;
+  max-width: 400px;
+  justify-self: end !important;
+  align-self: start !important;
+}
+
+#o-mnie .about-gallery-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  min-height: 0 !important;
+  max-height: 560px;
+  border-radius: 24px !important;
+  overflow: hidden;
+}
+
+#o-mnie .about-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#o-mnie .about-gallery-arrow {
+  width: 54px !important;
+  height: 54px !important;
+}
+
+#o-mnie .about-gallery-arrow svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+#o-mnie .about-gallery-arrow-prev {
+  left: 14px !important;
+}
+
+#o-mnie .about-gallery-arrow-next {
+  right: 14px !important;
+}
+
+@media (max-width: 1180px) {
+  #o-mnie .about-local-grid {
+    grid-template-columns: minmax(0, 1fr) 340px !important;
+    gap: 36px !important;
+  }
+
+  #o-mnie .about-local-copy h2,
+  #o-mnie .about-local-copy .about-local-title {
+    font-size: clamp(28px, 3vw, 42px) !important;
+    max-width: 13ch !important;
+  }
+
+  #o-mnie .about-local-description p {
+    font-size: clamp(18px, 1.2vw, 22px);
+  }
+
+  #o-mnie .about-local-gallery {
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 920px) {
+  #o-mnie .about-local-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  #o-mnie .about-local-copy {
+    max-width: none !important;
+  }
+
+  #o-mnie .about-local-copy h2,
+  #o-mnie .about-local-copy .about-local-title {
+    max-width: none !important;
+    font-size: clamp(30px, 7vw, 44px) !important;
+  }
+
+  #o-mnie .about-local-description {
+    max-width: none;
+  }
+
+  #o-mnie .about-local-description p {
+    font-size: clamp(18px, 4.5vw, 22px);
+    line-height: 1.65;
+  }
+
+  #o-mnie .about-local-gallery {
+    max-width: none;
+    justify-self: stretch !important;
+  }
+
+  #o-mnie .about-gallery-frame {
+    aspect-ratio: 4 / 3;
+    max-height: none;
+  }
+}
+
+/* ABOUT FINAL LAYOUT END */
+
+
+/* ABOUT SIZE FIX START */
+
+/*
+  Desktop:
+  - naglowek zawsze w jednej linii
+  - zdjecie ok. 15% wieksze
+  - mniejsza przerwa miedzy tekstem i zdjeciem
+  - zdjecie lekko przesuniete w lewo
+*/
+
+@media (min-width: 921px) {
+
+  #o-mnie .about-local-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      460px !important;
+
+    gap: 32px !important;
+
+    align-items: center !important;
+  }
+
+  #o-mnie .about-local-copy {
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  #o-mnie .about-local-copy h2,
+  #o-mnie .about-local-copy .about-local-title {
+    width: max-content !important;
+    max-width: none !important;
+
+    margin: 0 0 24px !important;
+
+    font-size: clamp(32px, 2.4vw, 40px) !important;
+    line-height: 1.08 !important;
+
+    white-space: nowrap !important;
+
+    text-align: left !important;
+  }
+
+  #o-mnie .about-local-gallery {
+    width: 460px !important;
+    max-width: 460px !important;
+
+    justify-self: end !important;
+
+    transform: translateX(-12px);
+  }
+
+  #o-mnie .about-gallery-frame {
+    width: 100% !important;
+
+    aspect-ratio: 4 / 5 !important;
+
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+
+}
+
+
+/*
+  Telefon / mniejszy ekran:
+  tutaj naglowek moze sie zlamac,
+  bo inaczej wyszedlby poza ekran.
+*/
+
+@media (max-width: 920px) {
+
+  #o-mnie .about-local-copy h2,
+  #o-mnie .about-local-copy .about-local-title {
+    width: auto !important;
+    max-width: none !important;
+    white-space: normal !important;
+  }
+
+  #o-mnie .about-local-gallery {
+    width: 100% !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+
+}
+
+/* ABOUT SIZE FIX END */
+
+
+/* STATIC SEO TEXT START */
+
+/* Miasta sa prawdziwym, zaznaczalnym tekstem. */
+.country-city-static {
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Brak efektu udawanego przycisku po najechaniu. */
+.country-city-static:hover {
+  transform: none !important;
+  border-color: rgba(255,255,255,.14) !important;
+  background: rgba(9,17,22,.84) !important;
+  color: #ffffff !important;
+}
+
+/* Zolty pasek jest informacyjny, a nie klikalny. */
+.signal-grid > span {
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Statyczne uslugi w stopce zachowuja wyglad,
+   ale nie udaja linkow. */
+.seo-footer-column > .footer-static-text {
+  display: block !important;
+  color: rgba(255,255,255,.82) !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  transform: none !important;
+}
+
+.seo-footer-column > .footer-static-text:hover {
+  color: rgba(255,255,255,.82) !important;
+  transform: none !important;
+}
+
+/* Opis firmy w stopce pozostaje zwyklym tekstem. */
+.seo-footer-about p {
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* STATIC SEO TEXT END */
