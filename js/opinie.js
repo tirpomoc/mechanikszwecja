@@ -42,6 +42,8 @@
   });
 
 
+  document.body.appendChild(lightbox);
+  const dialog = createSiteDialog(lightbox, closeButton, "reviews-lightbox-open");
   let currentIndex = 0;
 
   let touchStartX = 0;
@@ -86,26 +88,14 @@
 
     showReview(index);
 
-    lightbox.hidden = false;
-
-    document.body.classList.add(
-      "reviews-lightbox-open"
-    );
-
-    closeButton.focus();
+    dialog.open(shots[index]);
 
   }
 
 
   function closeLightbox() {
 
-    lightbox.hidden = true;
-
-    document.body.classList.remove(
-      "reviews-lightbox-open"
-    );
-
-    shots[currentIndex]?.focus();
+    dialog.close();
 
   }
 
@@ -178,10 +168,12 @@
       }
 
       if (event.key === "ArrowRight") {
+        event.preventDefault();
         nextReview();
       }
 
       if (event.key === "ArrowLeft") {
+        event.preventDefault();
         previousReview();
       }
 
