@@ -156,7 +156,7 @@ if (year) {
 */
 
 const galleryItems=[
-{src:'/assets/images/pierwsze.webp',alt:'Polski mechanik mobilnego serwisu TIR w Szwecji',width:900,height:1194},
+{src:'/assets/images/pierwsze1.webp',alt:'Polski mechanik mobilnego serwisu TIR w Szwecji',width:800,height:1061},
 {src:'/assets/images/drugie.webp',alt:'Narzędzia i wyposażenie mobilnego serwisu',width:1200,height:904},
 {src:'/assets/images/trzecie.webp',alt:'Wyposażenie mobilnego serwisu przewożone w samochodzie',width:1200,height:1594}
 ];

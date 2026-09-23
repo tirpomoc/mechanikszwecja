@@ -29,12 +29,6 @@
        GŁÓWNY CSS
   ========================================== -->
 
-  <link
-    rel="stylesheet"
-    href="/css/style.css?v=20260830123932"
-  />
-
-
   <!-- =========================================
        NOWY HERO
        Ten fragment nadpisuje stare ustawienia hero,
@@ -148,30 +142,7 @@
       color: #66737c;
       font-size: 16px;
     }
-
-    .about-local-video {
-      min-width: 0;
-    }
-
-    .about-local-video .video-player {
-      aspect-ratio: 4 / 3;
-      min-height: 430px;
-    }
-
-    .about-local-video .video-placeholder span {
-      text-align: center;
-      line-height: 1.05;
-    }
-
-    .video-note {
-      margin: 14px 0 0;
-      color: #7a858d;
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-
-    @media (max-width: 1040px) {
+@media (max-width: 1040px) {
 
       .hero {
         min-height: auto;
@@ -227,13 +198,7 @@
       .about-local-grid {
         gap: 32px;
       }
-
-      .about-local-video .video-player {
-        aspect-ratio: 16 / 9;
-        min-height: 0;
-      }
-
-    }
+}
 
   </style>
 
@@ -397,6 +362,64 @@
   ]
 }
 </script>
+<!-- PERFORMANCE HEAD START -->
+
+<link rel="preload"
+      as="image"
+      href="/assets/images/hero-mobile.webp"
+      media="(max-width: 760px)"
+      fetchpriority="high">
+
+<link rel="preload"
+      as="image"
+      href="/assets/images/hero.webp"
+      media="(min-width: 761px)"
+      fetchpriority="high">
+
+<style id="critical-above-fold">
+:root{--ink:#101820;--yellow:#ffc400;--paper:#f7f8fa;--container:1180px}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,17,23,.78);border-bottom:1px solid rgba(255,255,255,.10)}
+.nav-wrap{min-height:78px;display:flex;align-items:center;gap:28px}
+.brand{display:inline-flex;align-items:center;color:#fff}
+.main-nav{margin-left:auto;display:flex;align-items:center;gap:24px}
+.main-nav a{color:#e6ebee;font-size:13px;font-weight:700}
+.header-call{color:#fff}
+.menu-toggle{display:none}
+.hero{min-height:720px;position:relative;overflow:hidden;color:#fff;display:flex;align-items:center;padding:150px 0 80px;background:#101820}
+.hero-media{position:absolute;inset:0;background-image:url("/assets/images/hero.webp");background-size:cover;background-position:55% 52%;transform:scale(1.02)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,14,20,.98) 0%,rgba(10,20,28,.91) 43%,rgba(10,20,28,.58) 72%,rgba(10,20,28,.52) 100%)}
+.hero-grid{position:relative;z-index:2}
+.hero-content{max-width:940px}
+.hero .reveal{opacity:1!important;transform:none!important}
+.hero h1{max-width:940px;margin:0;font-size:clamp(54px,6.2vw,92px);line-height:.96;letter-spacing:-.05em;font-weight:900}
+.hero h1 span{color:var(--yellow)}
+.hero-lead{max-width:800px;margin:30px 0 0;color:#d3dbe0;font-size:18px;line-height:1.65}
+.hero-services{max-width:850px;margin:20px 0 0;color:#aeb8c2;font-size:13px;font-weight:750;line-height:1.7}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{min-height:62px;padding:11px 20px;display:inline-flex;align-items:center;justify-content:center;gap:13px;border-radius:10px;font-weight:850;border:1px solid transparent}
+.btn-primary{background:var(--yellow);color:var(--ink)}
+.btn-secondary{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18);color:#fff}
+.local-proof{max-width:850px;margin-top:38px;padding-top:22px;border-top:1px solid rgba(255,255,255,.15);display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:1040px){.main-nav{display:none}.menu-toggle{display:block;margin-left:auto}.hero{min-height:auto}}
+@media(max-width:760px){body{padding-bottom:62px}.container{width:min(calc(100% - 28px),var(--container))}.site-header{position:absolute}.nav-wrap{min-height:70px}.header-call{display:none}.hero{min-height:auto;padding:118px 0 52px}.hero-media{background-image:url("/assets/images/hero-mobile.webp");background-position:61% center}.hero h1{font-size:clamp(44px,13vw,64px)}.hero-lead{margin-top:22px;font-size:15px}.hero-actions{display:grid;grid-template-columns:1fr}.btn{width:100%}}
+</style>
+
+<link rel="preload"
+      href="/css/style.min.css?v=20260923202109"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'">
+
+<noscript>
+  <link rel="stylesheet" href="/css/style.min.css?v=20260923202109">
+</noscript>
+
+<!-- PERFORMANCE HEAD END -->
 </head>
 
 
@@ -443,7 +466,6 @@
           <strong>Mechanik TIR Dania</strong>
         </span>
       </a>
-
 
 
 <!-- MENU MOBILNE -->
@@ -748,69 +770,30 @@
 
 
         <div class="about-local-copy reveal">
-  <span class="section-label">Polski mechanik TIR - Dania</span>
-  <h2>Polski mechanik TIR w Danii</h2>
-  <p>Obsługuję polskie firmy transportowe przy awariach ciężarówek i naczep w Danii. Kontaktujesz się bezpośrednio ze mną, po polsku, bez zagranicznego pośrednika.</p>
-</div>
+            <h2 class="about-local-title">Polski mechanik TIR w Szwecji</h2>
 
+            <div class="about-local-description">
+              <p>Cześć, jestem mobilnym mechanikiem od kilku lat.<br>Niedawno przeprowadziłem się do Szwecji.<br>Mieszkam w okolicach Helsingborga.</p>
 
-        <div class="about-local-video reveal reveal-delay">
+              <p>Z tego co mi wiadomo jestem jedynym polskim mechanikiem TIR w Szwecji. Posiadam narzędzia i wiedzę do wykonania zdecydowanej większości napraw, które trafiają się na drodze.</p>
 
-          <div
-            class="video-player"
-            data-video-id="TU_WSTAW_ID_FILMU_Z_YOUTUBE"
-          >
-
-            <button
-              class="video-facade"
-              type="button"
-              aria-label="Odtwórz film o mobilnym serwisie TIR w Szwecji"
-            >
-
-              <div
-                class="video-placeholder"
-                aria-hidden="true"
-              >
-                <span>
-                  POLSKI MECHANIK<br>
-                  W SZWECJI
-                </span>
-              </div>
-
-              <img
-                class="video-thumbnail"
-                alt=""
-                loading="lazy"
-                decoding="async"
-              >
-
-              <span
-                class="video-overlay"
-                aria-hidden="true"
-              ></span>
-
-              <span
-                class="video-play"
-                aria-hidden="true"
-              >
-                <span class="video-play-icon">
-                  ▶
-                </span>
-              </span>
-
-              <span class="video-caption">
-                <small>FILM O SERWISIE</small>
-                <strong>Jak działa mobilny serwis TIR w Szwecji</strong>
-              </span>
-
-            </button>
-
-          </div>
-
+              <p>Chętnie Ci pomogę w bardzo konkurencyjnej cenie.</p>
+            </div>
         </div>
 
 
-      </div>
+        <div class="about-local-gallery reveal reveal-delay" data-photo-gallery>
+<div class="about-gallery-frame" role="region" aria-label="Galeria zdjęć mobilnego serwisu TIR w Szwecji">
+<button class="about-gallery-arrow about-gallery-arrow-prev" data-gallery-prev type="button" aria-label="Poprzednie zdjęcie" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<img class="about-gallery-image" data-gallery-image src="/assets/images/pierwsze1.webp" alt="Polski mechanik mobilnego serwisu TIR w Szwecji" width="800" height="1061" loading="lazy" decoding="async" fetchpriority="low" tabindex="0" role="button" aria-label="Powiększ zdjęcie">
+<button class="about-gallery-arrow about-gallery-arrow-next" data-gallery-next type="button" aria-label="Następne zdjęcie"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="about-lightbox" data-gallery-lightbox hidden aria-hidden="true">
+<button class="about-lightbox-backdrop" data-gallery-close type="button" aria-label="Zamknij powiększone zdjęcie"></button>
+<div class="about-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Powiększone zdjęcie">
+<button class="about-lightbox-close" data-gallery-close type="button" aria-label="Zamknij zdjęcie">×</button>
+<img class="about-lightbox-image" data-gallery-lightbox-image alt="" decoding="async">
+</div></div></div></div>
 
     </section>
 
@@ -976,7 +959,6 @@
     </section>
 
 
-
     <!-- =========================================
          OBSZAR DZIAŁANIA
     ========================================== -->
@@ -984,8 +966,8 @@
     <section id="cennik" class="local-section"><div class="container local-grid"><div class="local-map reveal">
           <img
             class="local-map-image"
-            src="/assets/images/obszar-dojazdu.webp"
-            alt="Mapa stawek dojazdu mobilnego serwisu TIR do miejsca awarii"
+            src="/assets/images/mapa-helsingborg.webp"
+            alt="Mapa stawek dojazdu mobilnego serwisu TIR z bazą w rejonie Helsingborga"
             width="1205"
             height="1305"
             loading="lazy"
@@ -995,25 +977,12 @@
 
         <div class="local-copy reveal reveal-delay">
   <span class="section-label section-label-yellow">Cena naprawy i koszty dojazdu.</span>
-
   <h2>Cennik mobilnego serwisu TIR w Danii</h2>
-
-  <p>
-    <strong>Kopenhaga i cała wyspa Zelandia</strong> są rozliczane według stawki z mapy dla strefy
-    <strong>150-400 km, czyli 3,2 zł/km</strong>.
-  </p>
-
-  <p>
-    <strong>Pozostała część Danii</strong> jest rozliczana według
-    <strong>najmniejszej stawki za dojazd, czyli 2,9 zł/km</strong>.
-  </p>
-
-  <p>
-    Cena naprawy jest ustalana indywidualnie. Stawki dojazdu są netto.
-  </p>
+  <p>Cena naprawy jest ustalana indywidualnie w zależności od modelu pojazdu, rodzaju usterki i zakresu pracy.</p>
+  <p>Koszty dojazdu są rozliczane według stref pokazanych na mapie.</p>
+  <p>Cena dojazdu jest liczona za przejazd w obie strony.</p>
+  <p>Stawki dojazdu są netto.</p>
 </div></div></section>
-
-
 
 
     <!-- =========================================
@@ -1530,7 +1499,6 @@
   </footer>
 
 
-
   <!-- =========================================
        PRZYCISKI MOBILNE
   ========================================== -->
@@ -1561,7 +1529,7 @@
        JAVASCRIPT
   ========================================== -->
 
-  <script src="/js/main.js?v=20260829231128"></script>
+  <script src="/js/main.js?v=20260923195443"></script>
 
 
   <script src="/js/opinie.js?v=20260830111316"></script>
