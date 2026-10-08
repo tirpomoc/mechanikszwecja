@@ -1,0 +1,29 @@
+
+.cases-page .site-header{background:#101820}
+.case-hero{background:#101820;color:#fff;padding:145px 0 64px}
+.case-breadcrumbs{font-size:13px;color:#bcc8d0;margin-bottom:34px}
+.case-breadcrumbs a:hover{text-decoration:underline}
+.case-kicker{font-size:12px;font-weight:800;letter-spacing:.12em;color:#ffc400;margin:0 0 18px}
+.case-hero h1{font-size:clamp(34px,4.6vw,64px);max-width:1050px;line-height:1.08;letter-spacing:-.035em;margin:0}
+.case-intro{font-size:18px;line-height:1.75;color:#d3dbe0;max-width:850px;margin:26px 0 0}
+.case-content{max-width:900px;padding-top:56px;padding-bottom:70px}
+.case-content section{margin-bottom:36px}
+.case-content h2{font-size:clamp(25px,3vw,34px);line-height:1.2;letter-spacing:-.025em;margin:0 0 18px}
+.case-content p{font-size:17px;line-height:1.8;color:#43515b}
+.case-content p a{text-decoration:underline}
+.case-photos{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0}
+.case-photos figure{margin:0;min-width:0}
+.case-photos img{width:100%;height:auto;border-radius:10px}
+.case-photos figcaption{font-size:13px;color:#56646d;padding-top:12px}
+.case-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 36px}
+.case-wa{border-color:#101820;background:white;color:#101820}
+.case-back,.case-read{font-weight:800;text-decoration:underline;text-underline-offset:4px}
+.case-list{padding-top:56px;padding-bottom:80px}
+.case-card{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);border:1px solid #d9e0e5;border-radius:14px;overflow:hidden;background:white}
+.case-card-image img{width:100%;height:100%;object-fit:cover;max-height:440px}
+.case-card-copy{padding:36px;align-self:center;min-width:0}
+.case-card .case-kicker{color:#675000}
+.case-card h2{font-size:clamp(24px,3vw,36px);line-height:1.2;margin:0 0 18px}
+.case-card p:not(.case-kicker){color:#52616c;margin-bottom:24px}
+.cases-page a:focus-visible{outline:3px solid #b78100;outline-offset:5px}
+@media(max-width:760px){.case-hero{padding:110px 0 40px}.case-intro{font-size:16px}.case-photos,.case-card{grid-template-columns:1fr}.case-card-copy{padding:24px}.case-content,.case-list{padding-top:36px}.case-photos img{max-height:650px;object-fit:contain;background:#e5e9ec}.case-actions{display:grid}.case-breadcrumbs{margin-bottom:26px}}
