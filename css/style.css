@@ -74,7 +74,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .menu-toggle span:not(.sr-only) { display: block; width: 25px; height: 2px; background: white; margin: 5px 0; }
 
 .hero { min-height: 760px; position: relative; overflow: hidden; color: white; display: flex; align-items: center; padding: 145px 0 72px; background: var(--ink); }
-.hero-media { position: absolute; inset: 0; background-image: url('/assets/images/hero.webp'); background-size: cover; background-position: 55% 52%; transform: scale(1.02); }
+.hero-media { position: absolute; inset: 0; background-image: url('/assets/images/hero-speed-2026.webp'); background-size: cover; background-position: 55% 52%; transform: scale(1.02); }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,14,20,.98) 0%, rgba(10,20,28,.91) 43%, rgba(10,20,28,.58) 72%, rgba(10,20,28,.52) 100%), linear-gradient(0deg, rgba(16,24,32,.88) 0%, transparent 38%); }
 .hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(330px, .65fr); gap: 68px; align-items: end; }
 .hero-content { max-width: 760px; }
@@ -5512,12 +5512,12 @@ body.photo-fullscreen-open {
 /* ---------- HERO ---------- */
 
 .hero-media {
-  background-image: url('/assets/images/hero.webp') !important;
+  background-image: url('/assets/images/hero-speed-2026.webp') !important;
 }
 
 @media (max-width: 760px) {
   .hero-media {
-    background-image: url('/assets/images/hero-mobile.webp') !important;
+    background-image: url('/assets/images/hero-mobile-speed-2026.webp') !important;
   }
 }
 
