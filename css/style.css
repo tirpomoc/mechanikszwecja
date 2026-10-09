@@ -5825,3 +5825,74 @@ article.problem-card:hover { transform: none; }
 
 /* Space for the Realizacje navigation item on compact desktops. */
 @media(min-width:1041px) and (max-width:1350px){.site-header .seo-brand-text>span:first-child,.site-header .seo-brand-divider{display:none!important}.site-header .seo-brand{flex:0 1 260px!important;min-width:0!important}.site-header .seo-brand-text strong{font-size:14px!important}.site-header .main-nav{gap:12px!important}}
+
+
+/* Mobile reading width and action buttons - 2026-10-09.
+   Fix actual text overflow; do not merely clip the viewport. */
+@media (max-width: 760px) {
+  .hero .container,
+  .hero .hero-grid,
+  .hero .hero-content {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hero .hero-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .hero .hero-content > * {
+    max-width: 100% !important;
+  }
+  .hero .hero-content h1 {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    font-size: clamp(30px, 8.7vw, 48px) !important;
+    line-height: 1.09 !important;
+    letter-spacing: -.045em !important;
+    overflow-wrap: anywhere !important;
+    hyphens: auto;
+  }
+  .hero .hero-content .hero-lead,
+  .hero .hero-content .hero-services,
+  .hero .hero-content .local-proof,
+  .hero .eyebrow {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  .hero .hero-content .hero-actions {
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .hero .hero-content .hero-actions .btn {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hero .hero-content .hero-actions .btn strong {
+    overflow-wrap: anywhere;
+  }
+  .cta-email-contact,
+  .seo-footer-email {
+    overflow-wrap: anywhere;
+  }
+}
+.cta-email-contact {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.cta-email-contact a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.seo-footer-email {
+  display: block;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.seo-footer-email:hover,
+.cta-email-contact a:hover { color: var(--yellow, #ffc400); }
