@@ -188,3 +188,20 @@ article.problem-card:hover { transform: none; }
 }
 .seo-footer-email:hover,
 .cta-email-contact a:hover { color: var(--yellow, #ffc400); }
+
+
+/* 2026-10-09: Comfortable side gutters without narrowing the text grid incorrectly. */
+@media (max-width: 760px) {
+  .hero > .container.hero-grid,
+  .hero > .container {
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    margin-inline: auto !important;
+    min-width: 0 !important;
+  }
+  .hero .hero-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
